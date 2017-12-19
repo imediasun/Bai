@@ -1,0 +1,190 @@
+.icn,
+.acc_h:after,
+.bx-prev,
+.bx-next,
+.page_header_location_actual:after,
+.ui-slider .ui-slider-handle,
+.select_place .ik_select_link_text:after,
+.offer_details_list li:before,
+.simple_cb:before,
+.bank_card_phone .number:before,
+.location_select:after,
+.bank_address_unit .hours:before,
+.document_list li:before,
+.benefits_list li:before
+{background:url(../images/sprite.png);background-repeat: no-repeat;display: inline-block;}
+
+.select_place .ik_select_link_text:after,
+.acc_h:after,
+.offer_details_list li:before,
+.page_header_location_actual:after,
+.simple_cb:before,
+.bank_card_phone .number:before,
+.location_select:after,
+.bank_address_unit .hours:before,
+.document_list li:before,
+.benefits_list li:before
+{position: absolute;content: '';}
+
+
+
+.icn_mcbig { background-position: -0px -787px; width: 30px; height: 18px; margin-right: 5px;position: relative;top: 3px;}
+.benefits-check { background-position: -0px -830px; width: 25px; height: 27px; }
+.icn-side-pigbank { background-position: -0px -857px; width: 25px; height: 27px; }
+.icn-side-moneypile { background-position: -0px -884px; width: 24px; height: 19px; }
+.icn-side-visa { background-position: -0px -903px; width: 22px; height: 17px; }
+
+
+
+
+
+.ui-slider .ui-slider-handle { background-position: -0px -753px; width: 34px; height: 34px; }
+
+.offer_unit_details_features .icn,
+.page_header_search .icn,
+.page_header_personal_btn .icn,
+.page_navi_icn .icn{background-image: url(../images/icons_new.svg)}
+
+
+
+.icn_navi_1{background-position:0 0;width:32px;height:32px}
+.icn_navi_2{background-position:0 -128px;width:32px;height:32px}
+.icn_navi_3{background-position:0 -256px;width:32px;height:32px}
+.icn_navi_4{background-position:0 -384px;width:32px;height:32px}
+.icn_navi_5{background-position:0 -192px;width:32px;height:32px}
+.icn_navi_6{background-position:0 -64px;width:32px;height:32px}
+.icn_navi_7{background-position:0 -448px;width:32px;height:32px}
+.icn_navi_8{background-position:0 -320px;width:32px;height:32px}
+
+a.active .icn_navi_1{background-position:0 -32px;width:32px;height:32px}
+a.active .icn_navi_2{background-position:0 -160px;width:32px;height:32px}
+a.active .icn_navi_3{background-position:0 -288px;width:32px;height:32px}
+a.active .icn_navi_4{background-position:0 -416px;width:32px;height:32px}
+a.active .icn_navi_5{background-position:0 -224px;width:32px;height:32px}
+a.active .icn_navi_6{background-position:0 -96px;width:32px;height:32px}
+a.active .icn_navi_7{background-position:0 -480px;width:32px;height:32px}
+a.active .icn_navi_8{background-position:0 -352px;width:32px;height:32px}
+
+.icn_key {background-position:0 -288px;width:16px;height:16px;-webkit-background-size: 16px  376px;background-size: 16px 376px;}
+a:hover .icn_key {background-position:0 -272px;}
+
+
+.icn_toggle_nav {background: none;width: 50px;height: 50px;border-radius: 50px;position: relative;color: #fff;box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2)}
+.icn_toggle_nav:after {content: '';position: absolute;width: 17px;height: 2px;background: currentColor;margin: auto;top: 0;bottom: 0;left: 0;right: 0;box-shadow: 0 -6px currentColor, 0 6px currentColor}
+a:hover .icn_toggle_nav {background: rgb(7,183,94);
+background: -moz-linear-gradient(top,  rgba(7,183,94,1) 0%, rgba(6,181,95,1) 22%, rgba(1,159,103,1) 100%);
+background: -webkit-linear-gradient(top,  rgba(7,183,94,1) 0%,rgba(6,181,95,1) 22%,rgba(1,159,103,1) 100%);
+background: linear-gradient(to bottom,  rgba(7,183,94,1) 0%,rgba(6,181,95,1) 22%,rgba(1,159,103,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07b75e', endColorstr='#019f67',GradientType=0 );}
+
+
+.icn_search { background-position: -0px -736px; width: 15px; height: 15px; }
+/*.focus .icn_search, .icn_search:hover { background-position: -22px -935px; }*/
+
+.icn_of_dir { background-position: -0px -498px; width: 35px; height: 35px; }
+.icn_of_dir:hover { background-position: -0px -428px;}
+.opened .icn_of_dir { background-position: -0px -463px;}
+.acc_h:after { background-position: -0px -996px; width: 20px; height: 20px;opacity: 0.5;-webkit-transition: transform 0.3s;-o-transition: transform 0.3s;transition: transform 0.3s;-webkit-transform: rotate(180deg);-ms-transform: rotate(180deg);-o-transform: rotate(180deg);transform: rotate(180deg);}
+.acc_h:hover:after { background-position: -0px -1079px;opacity: 1;}
+.opened .acc_h:after {opacity: 1;-webkit-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);transform: rotate(0deg);}
+
+.bx-prev { background-position: -25px -866px; width: 8px; height: 13px; text-indent: -9999px;}
+.bx-prev:hover { background-position: -25px -853px; width: 8px; height: 13px; }
+.bx-next { background-position: -29px -979px; width: 8px; height: 13px; text-indent: -9999px;}
+.bx-next:hover { background-position: -29px -966px; width: 8px; height: 13px; }
+
+
+
+.filter_form .acc_h:after { background-position: -0px -1016px;opacity: 1;position: relative;left: auto;right: auto;vertical-align: middle;margin-left: 6px;}
+.page_header_location_actual:after { background-position: -26px -819px; width: 9px; height: 17px;right: -20px;position: absolute;top: 5px;}
+.page_header_location_actual:hover:after { background-position: -25px -836px; width: 9px; height: 17px; }
+
+.select_place .ik_select_link_text:after{ background-position: -35px -819px; width: 9px; height: 17px;right: 10px;position: absolute;top: 0px;bottom: 0;margin: auto;}
+.offer_details_list li:before { background: none;height: 15px;
+width: 15px;
+border-radius: 15px;
+border: 3px solid  #fff;
+content: '';left: 0;-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;top: 13px;}
+
+
+
+.icn_clocks{background-position: -24px -1269px; width: 15px; height: 15px;}
+.icn_type_small_money   { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 0;width:16px;height:16px;} 
+.icn_type_small_car     { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 -128px;width:16px;height:16px;} 
+.icn_type_small_pigbank { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 -32px;width:16px;height:16px;} 
+.icn_type_small_house   { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 -96px;width:16px;height:16px;} 
+.icn_type_small_card    { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 -64px;width:16px;height:16px;} 
+.icn_type_small_museum  { -webkit-background-size: 16px  376px;background-size: 16px 376px;background-position:0 -224px;width:16px;height:16px;} 
+.button_search { background-position: 0 -1269px; width: 15px; height: 15px; } 
+
+.icn_q{background-position: 0 -1318px;width: 16px;height: 16px;}
+.icn_mc{height: 12px;width: 20px;background-position: 0 -1342px;}
+.icn_visa{height: 8px;width: 22px;background-position: 0 -1334px;}
+
+.icn_dir_up { background-position: -26px -812px; width: 10px; height: 7px; }
+.icn_dir_down { background-position: -26px -805px; width: 10px; height: 7px; }
+
+.icn_geo_point { background-position: -0px -0px; width: 38px; height: 48px; }
+a:hover .icn_geo_point { background-position: -0px -48px; width: 38px; height: 48px; }
+
+.icn_back_link{background-position: 0 -1354px;width: 31px;height: 31px;}
+.bank_card_phone .number:before{background-position: 0 -1385px;width: 20px;height: 20px;left: -30px;top: 5px;}
+
+
+.icn_exchange_dir{width: 24px;height: 26px;background-position: 0 -1405px;}
+.icn_reload{background-position: 0 -1431px;width: 21px;height: 18px;}
+a:hover .icn_reload{background-position: 0 -1449px;}
+.icn_vote{background-position: -22px -1449px;width: 16px;height: 16px;vertical-align: middle;margin-right: 4px;}
+
+
+.icn_geo_small{height: 16px;width: 13px;background-position: 0 -1467px;}
+
+.icn_times { background-position: -24px -884px; width: 14px; height: 14px; vertical-align: middle;position: relative;top: -2px;}
+.bank_address_unit .hours:before { background-position: -24px -884px; width: 14px; height: 14px; vertical-align: middle;position: absolute;top: 0px;left: 0;}
+.icn_tell{width: 16px;height: 14px;background-position: -13px -1467px;}
+.icn_gear{width: 22px;height: 22px;background-position: 0 -1483px;}
+
+.location_select:after{width: 9px;height: 6px;background-position: 0 -1505px;top: 0;bottom: 0;margin: auto;right: -15px;}
+.location_select:hover:after{background-position: -9px -1505px;}
+.icn_mousehint { background-position: -0px -944px; width: 21px; height: 32px; }
+
+.not_fresh .icn_reload{background-position: 0 -1511px;}
+
+.icn_soc__v{width: 48px;height: 48px;background-position: 0 -1529px;}
+.icn_soc__g{width: 48px;height: 48px;background-position: 0 -1625px;}
+.icn_soc__t{width: 48px;height: 48px;background-position: 0 -1673px;}
+.icn_soc__f{width: 48px;height: 48px;background-position: 0 -1577px;}
+.icn_pen{width: 16px;height: 16px;background-position: -21px -1511px;vertical-align: middle;position: relative;top: -2px;}
+.icn_flag{width: 16px;height: 18px;background-position: 0 -1721px;}
+
+
+
+.icn_product_1{background-image: url(../images/icons_new.svg);background-position:0 -288px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+.icn_product_2.icn_product_2{background-image: url(../images/icons_new.svg);background-position:0 -32px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+.icn_product_3{background-image: url(../images/icons_new.svg);background-position:0 -96px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+
+
+
+.document_list li:before { background-position: -21px -950px; width: 14px; height: 16px; left: 0;}
+.icn_q_blue{width: 16px;height: 16px;background-position: -24px -1721px;top: 1px;}
+
+
+
+.icn_bank_nav_1 { background-position: -0px -1802px; width: 45px; height: 30px; }
+.icn_bank_nav_2 { background-position: -0px -1832px; width: 30px; height: 40px; }
+.icn_product_6 {background-image: url(../images/icons_new.svg);background-position:0 -416px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+.icn_product_4 {background-image: url(../images/icons_new.svg);background-position:0 -160px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+.icn_product_5 {background-image: url(../images/icons_new.svg);background-position:0 -224px;width:32px;height:32px;-webkit-transform: scale(0.75);-ms-transform: scale(0.75);-o-transform: scale(0.75);transform: scale(0.75);}
+.icn_more_solid{width: 52px;height: 52px;background-position: 0 -1923px;}
+a:hover .icn_more_solid{background-position: 0 -1975px;}
+
+.geo-back { background-position: -0px -2027px; width: 46px; height: 46px; }
+.geo-back-h { background-position: -0px -2073px; width: 46px; height: 46px; }
+
+.icn_more_big { background-position: -0px -2119px; width: 33px; height: 25px;}
+.index_cube_search_btn { background-position: -33px -2135px; width: 12px; height: 12px;border: 0;}
+
+.benefits_list li:before { background-position: -0px -2144px; width: 25px; height: 27px; left: 0;top: -4px;}
+.icn_calc { background-position: -33px -2119px; width: 13px; height: 16px; position: absolute;left: -18px;top: 1px;}

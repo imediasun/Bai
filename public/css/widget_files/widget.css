@@ -1,0 +1,343 @@
+@charset "UTF-8";
+
+.bai_widget_wrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: stretch;
+	    -ms-flex-align: stretch;
+	        align-items: stretch;
+	font: normal 13px/21px Roboto, Arial, Helvetica, "sans-serif";
+	color: #000;
+	text-align: left;
+	letter-spacing: normal;
+	text-indent: 0;
+	min-width: 0;
+	min-height: 0;
+	max-height: none;
+	max-width: none;
+	border: 1px solid #f5f5f5;
+}
+
+.bai_widget_wrap a {
+	color: #1578cc;
+	text-decoration: underline;
+	outline: none;
+	cursor: pointer;
+}
+
+.bai_widget_wrap a:hover {
+	text-decoration: none;
+}
+
+.bai_widget_green {
+	color: #3aa909;
+}
+
+.bai_widget_red {
+	color: #e52e2e;
+}
+
+.bai_widget_part_l {
+	/*background: #f5f5f5;*/
+}
+
+.bai_widget_part_r {
+	/*background: #fff;*/
+}
+
+.bai_widget_head {
+	font-weight: bold;
+	font-size: 15px;
+	margin: 0 0 24px 0;
+}
+
+.bai_widget_date {
+	font-weight: normal;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+.bai_widget_head2 {
+	font-size: 15px;
+	line-height: 17px;
+	height: 34px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	letter-spacing: 0.03em;
+	-webkit-box-align: end;
+	    -ms-flex-align: end;
+	        align-items: flex-end;
+	margin: -16px 0 13px 0;
+}
+
+.bai_widget_head2 a {
+	color: inherit;
+}
+
+.bai_widget_tables {
+	margin: -22px -30px;
+	-webkit-box-align: end;
+	    -ms-flex-align: end;
+	        align-items: flex-end;
+}
+
+.bai_widget_tables .slick-list {
+	padding: 0 8px;
+}
+
+.bai_widget_tables_el {
+	padding: 22px;
+	width: 236px;
+}
+
+.bai_widget_table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	border: 0;
+}
+
+.bai_widget_table th,
+.bai_widget_table td {
+	text-align: right;
+	vertical-align: top;
+	white-space: nowrap;
+	padding: 0;
+	border: 0;
+}
+
+.bai_widget_table th {
+	background-image: -webkit-linear-gradient(top, #eef3f7 0%, #eef3f7 100%);
+	background-image: linear-gradient(to bottom, #eef3f7 0%, #eef3f7 100%);
+	background-repeat: repeat-x;
+	background-size: 100% 6px;
+	background-position: 0 50%;
+	font-weight: normal;
+	font-size: 11px;
+	line-height: 14px;
+	color: #464646;
+	padding: 0;
+}
+
+.bai_widget_table th span {
+	padding: 0 7px;
+	background: #fff;
+}
+
+.bai_widget_table th:last-child span {
+	padding-right: 0;
+}
+
+.bai_widget_table td {
+	font-size: 15px;
+	line-height: 21px;
+	padding: 11px 0 0 0;
+}
+
+.bai_widget_table td.bai_widget_table_l {
+	text-align: left;
+}
+
+.bai_widget_rate_arrow {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	border-style: solid;
+	border-width: 7px 5px;
+	margin: 0 4px 0 0;
+}
+
+.bai_widget_rate_arrow_up {
+	border-top-width: 0;
+	border-color: #3aa909 transparent;
+	top: -2px;
+}
+
+.bai_widget_rate_arrow_down {
+	border-bottom-width: 0;
+	border-color: #e52e2e transparent;
+}
+
+.bai_widget_tables .slick-dots {
+	list-style: none;
+	margin: -10px 0;
+	position: relative;
+	padding: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	width: 100%;
+}
+
+.bai_widget_tables .slick-dots li {
+	margin: 0 5px;
+	padding: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 1px solid #000;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+	cursor: pointer;
+}
+
+.bai_widget_tables .slick-dots li.slick-active {
+	background: #000;
+	cursor: default;
+}
+
+.bai_widget_tables .slick-dots li > * {
+	display: none;
+}
+
+/*-----horizontal-----*/
+.bai_widget_horizontal {
+	padding: 7px;
+	width: 900px;
+}
+
+.bai_widget_horizontal .bai_widget_part {
+	padding: 15px 30px 20px 30px;
+}
+
+.bai_widget_horizontal .bai_widget_part_l {
+	width: 344px;
+	-webkit-box-flex: 0;
+	    -ms-flex: 0 0 auto;
+	        flex: 0 0 auto;
+	padding-left: 21px;
+	padding-right: 21px;
+}
+
+.bai_widget_horizontal .bai_widget_part_r {
+	-webkit-box-flex: 1;
+	    -ms-flex: 1 1 auto;
+	        flex: 1 1 auto;
+	width: calc(100% - 344px);
+}
+
+.bai_widget_horizontal .bai_widget_head {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+}
+
+.bai_widget_horizontal .bai_widget_date {
+	margin: 0 0 0 10px;
+}
+
+.bai_widget_horizontal .bai_widget_list {
+	list-style: none;
+	margin: -7px -5px;
+	padding: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+}
+
+.bai_widget_horizontal .bai_widget_list_el {
+	width: 25%;
+	margin: 0;
+	padding: 7px 5px;
+	min-width: 70px;
+}
+
+.bai_widget_horizontal .bai_widget_list_cyr {
+	font-size: 15px;
+	margin-bottom: 3px;
+}
+
+.bai_widget_horizontal .bai_widget_list_val {
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.bai_widget_horizontal .bai_widget_list_change {
+	font-size: 12px;
+}
+
+/*-----vertical-----*/
+
+.bai_widget_vertical {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	padding: 2px;
+	min-width: 238px;
+	max-width: 238px;
+	width: 238px;
+}
+
+.bai_widget_vertical .bai_widget_part_l,
+.bai_widget_vertical .bai_widget_part_r {
+	padding: 17px 21px 20px 21px;
+	width: auto;
+	-webkit-box-flex: 1;
+	    -ms-flex: auto;
+	        flex: auto;
+}
+
+.bai_widget_vertical .bai_widget_part_l .bai_widget_head {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: stretch;
+	    -ms-flex-align: stretch;
+	        align-items: stretch;
+	font-size: 19px;
+	margin: 0 0 12px 0;
+}
+
+.bai_widget_vertical .bai_widget_part_l .bai_widget_date {
+	margin: 1px 0 0 0;
+}
+
+.bai_widget_vertical .bai_widget_list {
+	list-style: none;
+	margin: -5px 0 -6px 0;
+	padding: 0;
+}
+
+.bai_widget_vertical .bai_widget_list_el {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 5px 0 6px 0;
+	margin: 0;
+}
+
+.bai_widget_vertical .bai_widget_list_cyr {
+	font-size: 15px;
+	width: 33.33%;
+}
+
+.bai_widget_vertical .bai_widget_list_val {
+	font-size: 15px;
+	font-weight: normal;
+	width: 44.44%;
+}
+
+.bai_widget_vertical .bai_widget_list_change {
+	font-size: 15px;
+	width: 22.22%;
+	text-align: right;
+}
+
+.bai_widget_vertical .bai_widget_tables .slick-dots {
+	margin-bottom: 7px;
+}

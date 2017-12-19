@@ -1,0 +1,23 @@
+.fos_comment_comment_reply, .fos_comment_submit {
+    text-align: left;
+}
+
+.fos_comment_comment_replies {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.fos_comment_comment_metas {
+    font-size: 10px;
+}
+
+.fos_comment_body {
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    width: 400px;
+    height: 50px;
+}
+
+.fos_comment_comment_show {
+    background-color: #9d9d9d;
+}

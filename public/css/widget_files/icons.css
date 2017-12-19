@@ -1,0 +1,322 @@
+@charset "utf-8";
+
+.ic,
+.select2-selection__arrow {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	background: url(../img/icons.png) no-repeat 0 -10000px;
+	background-size: 96px auto;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+
+.ic_lock {
+ background-position: calc(0 * -24px) calc(0 * -24px);
+}
+
+.ic_lock.white {
+ background-position: calc(1 * -24px) calc(0 * -24px);
+}
+
+.ic_lock.active {
+ background-position: calc(2 * -24px) calc(0 * -24px);
+}
+
+.ic_search {
+ background-position: calc(0 * -24px) calc(1 * -24px);
+}
+
+.ic_search.white {
+ background-position: calc(1 * -24px) calc(1 * -24px);
+}
+
+.ic_search.active {
+ background-position: calc(2 * -24px) calc(1 * -24px);
+}
+
+.ic_select,
+.select2-selection__arrow {
+ background-position: calc(0 * -24px) calc(2 * -24px);
+}
+.select_area .select2-selection__arrow{
+	height: 12px; background-position: calc(2 * -24px) calc(2.5 * -24px);
+
+}.sort .mob_select .select2-selection__arrow{
+	height: 12px; background-position: calc(0 * -24px) calc(2.5 * -24px);
+
+}
+.ic_select.white {
+ background-position: calc(1 * -24px) calc(2 * -24px);
+}
+
+.ic_select.active {
+ background-position: calc(2 * -24px) calc(2 * -24px);
+}
+
+.ic_cross {
+ background-position: calc(0 * -24px) calc(3 * -24px);
+}
+
+.ic_cross.white {
+ background-position: calc(1 * -24px) calc(3 * -24px);
+}
+
+.ic_cross.active {
+ background-position: calc(2 * -24px) calc(3 * -24px);
+}
+
+.ic_place {
+ background-position: calc(0 * -24px) calc(4 * -24px);
+}
+
+.ic_place.white {
+ background-position: calc(1 * -24px) calc(4 * -24px);
+}
+
+.ic_place.active, .search_course .select_area .select2-selection__arrow {
+ background-position: calc(2 * -24px) calc(4 * -24px);
+}
+
+.ic_phone {
+ background-position: calc(0 * -24px) calc(5 * -24px);
+}
+
+.ic_phone.white {
+ background-position: calc(1 * -24px) calc(5 * -24px);
+}
+
+.ic_phone.active {
+ background-position: calc(2 * -24px) calc(5 * -24px);
+}
+
+.ic_place_big {
+	width: 48px;
+	height: 48px;
+ background-position: calc(0 * -48px) calc(6 * -24px);
+}
+
+.ic_quote_plus {
+ background-position: calc(0 * -24px) calc(8 * -24px);
+}
+
+.ic_quote_plus.white {
+ background-position: calc(1 * -24px) calc(8 * -24px);
+}
+
+.ic_quote_plus.active {
+ background-position: calc(2 * -24px) calc(8 * -24px);
+}
+
+.ic_pen {
+ background-position: calc(0 * -24px) calc(9 * -24px);
+}
+
+.ic_pen.white {
+ background-position: calc(1 * -24px) calc(9 * -24px);
+}
+
+.ic_pen.active {
+ background-position: calc(2 * -24px) calc(9 * -24px);
+}
+
+.ic_quote {
+ background-position: calc(0 * -24px) calc(10 * -24px);
+}
+
+.ic_quote.white {
+ background-position: calc(1 * -24px) calc(10 * -24px);
+}
+
+.ic_quote.active {
+ background-position: calc(2 * -24px) calc(10 * -24px);
+}
+
+.ic_arrow {
+ background-position: calc(0 * -24px) calc(11 * -24px);
+}
+
+.ic_arrow.white {
+ background-position: calc(1 * -24px) calc(11 * -24px);
+}
+
+.ic_arrow.active {
+ background-position: calc(2 * -24px) calc(11 * -24px);
+}
+
+.ic_arrow.yellow {
+ background-position: calc(3 * -24px) calc(11 * -24px);
+}
+
+.ic_scale {
+ background-position: calc(0 * -24px) calc(12 * -24px);
+}
+
+.ic_scale.white {
+ background-position: calc(1 * -24px) calc(12 * -24px);
+}
+
+.ic_scale.active {
+ background-position: calc(2 * -24px) calc(12 * -24px);
+}
+
+.ic_scale.dark {
+ background-position: calc(3 * -24px) calc(12 * -24px);
+}
+
+.ic_arrow_thin {
+ background-position: calc(0 * -24px) calc(13 * -24px);
+}
+
+.ic_arrow_thin.white {
+ background-position: calc(1 * -24px) calc(13 * -24px);
+}
+
+.ic_arrow_thin.active {
+ background-position: calc(2 * -24px) calc(13 * -24px);
+}
+
+.ic_arrow_thin.dark {
+ background-position: calc(3 * -24px) calc(13 * -24px);
+}
+
+.ic_trash {
+ background-position: calc(0 * -24px) calc(14 * -24px);
+}
+
+.ic_trash.white {
+ background-position: calc(1 * -24px) calc(14 * -24px);
+}
+
+.ic_trash.active {
+ background-position: calc(2 * -24px) calc(14 * -24px);
+}
+
+.ic_cross_big {
+ background-position: calc(0 * -24px) calc(15 * -24px);
+}
+
+.ic_cross_big.white {
+ background-position: calc(1 * -24px) calc(15 * -24px);
+}
+
+.ic_cross_big.active {
+ background-position: calc(2 * -24px) calc(15 * -24px);
+}
+
+.ic_filter {
+ background-position: calc(0 * -24px) calc(16 * -24px);
+}
+
+.ic_filter.white {
+ background-position: calc(1 * -24px) calc(16 * -24px);
+}
+
+.ic_filter.active {
+ background-position: calc(2 * -24px) calc(16 * -24px);
+}
+
+.ic_scale_big {
+	width: 72px;
+	height: 72px;
+ background-position: calc(0 * -24px) calc(17 * -24px);
+}
+
+.ic_check {
+ background-position: calc(0 * -24px) calc(20 * -24px);
+}
+
+.ic_check.white {
+ background-position: calc(1 * -24px) calc(20 * -24px);
+}
+
+.ic_check.active {
+ background-position: calc(2 * -24px) calc(20 * -24px);
+}
+
+.ic_check.dark {
+ background-position: calc(3 * -24px) calc(20 * -24px);
+}
+
+.ic_arrow_link {
+	width: 48px;
+	height: 48px;
+ background-position: calc(0 * -24px) calc(21 * -24px);
+}
+
+.ic_quote_right {
+ background-position: calc(0 * -24px) calc(23 * -24px);
+}
+
+.ic_quote_right.white {
+ background-position: calc(1 * -24px) calc(23 * -24px);
+}
+
+.ic_quote_right.active {
+ background-position: calc(2 * -24px) calc(23 * -24px);
+}
+
+.ic_time {
+ background-position: calc(0 * -24px) calc(24 * -24px);
+}
+
+.ic_time.white {
+ background-position: calc(1 * -24px) calc(24 * -24px);
+}
+
+.ic_time.active {
+ background-position: calc(2 * -24px) calc(24 * -24px);
+}
+
+.ic_time.dark {
+ background-position: calc(3 * -24px) calc(24 * -24px);
+}
+
+.ic_card {
+ background-position: calc(0 * -24px) calc(25 * -24px);
+}
+
+.ic_news {
+ background-position: calc(0 * -24px) calc(26 * -24px);
+}
+
+.ic_news.white {
+ background-position: calc(1 * -24px) calc(26 * -24px);
+}
+
+.ic_news.active {
+ background-position: calc(2 * -24px) calc(26 * -24px);
+}
+
+.ic_data_transfer {
+ background-position: calc(0 * -24px) calc(27 * -24px);
+}
+
+.ic_data_transfer.white {
+ background-position: calc(1 * -24px) calc(27 * -24px);
+}
+
+.ic_data_transfer.active {
+ background-position: calc(2 * -24px) calc(27 * -24px);
+}
+
+.ic_star {
+ background-position: calc(0 * -24px) calc(28 * -24px);
+}
+
+.ic_star.white {
+ background-position: calc(1 * -24px) calc(28 * -24px);
+}
+
+.ic_star.active {
+ background-position: calc(2 * -24px) calc(28 * -24px);
+}
+.ic_list {
+ background-position: calc(0 * -24px) calc(29 * -24px);
+}
+
+.ic_place2 {
+ background-position: calc(0 * -24px) calc(30 * -24px);
+}

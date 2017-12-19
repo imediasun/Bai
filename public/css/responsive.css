@@ -1,0 +1,271 @@
+@charset "utf-8";
+
+@media only screen and (max-width: 1016px) {
+
+.hide_tablet {
+	display: none!important;
+}
+
+.show_tablet {
+	display: block!important;
+}
+
+.course_actions.show_tablet,
+.tabs_small.show_tablet {
+	display: -webkit-box!important;
+	display: -ms-flexbox!important;
+	display: flex!important;
+}
+
+.toggle_city {
+	margin-left: -30px;
+	font-size: 17px;
+}
+
+.link_lock {
+	margin-left: 13px;
+	margin-right: 10px;
+}
+
+.raside_hold {
+	padding-right: 0;
+}
+
+.raside_hold:after {
+	content: ' ';
+	clear: both;
+	display: block;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	font-size: 0;
+}
+
+.side_l,
+.side_r {
+	width: auto;
+	float: none;
+	margin: 0;
+	left: auto;
+}
+
+.side_r {
+	padding: 30px 15px 0 15px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+}
+
+.side_r > * {
+	padding: 0 15px;
+	width: 50%;
+	margin-bottom: 30px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+}
+
+.side_r > * > * {
+	-webkit-box-flex: 1;
+	    -ms-flex: 1 0 auto;
+	        flex: 1 0 auto;
+}
+
+.raside_hold_map .side_r {
+	display: none;
+}
+
+.side_block_hide_tablet {
+	display: none;
+}
+
+.order1 {
+	-webkit-box-ordinal-group: 2;
+	    -ms-flex-order: 1;
+	        order: 1;
+}
+
+.order2 {
+	-webkit-box-ordinal-group: 3;
+	    -ms-flex-order: 2;
+	        order: 2;
+}
+
+.main_head .logo_hold {
+	left: auto;
+	position: static;
+}
+
+.main_head_side_hold {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: stretch;
+	    -ms-flex-align: stretch;
+	        align-items: stretch;
+}
+
+.main_head_side_hold .tabs_small {
+	margin: 20px 0 0 0;
+}
+
+.main_head_side_hold .time_info {
+	margin: 2px 0 2px 0;
+}
+
+.bank_info_top {
+	position: static;
+	left: auto;
+}
+
+.course_top_info {
+	margin-right: -30px;
+	border-radius: 0 0 0 7px;
+	border-right-width: 0;
+}
+
+.course_actions {
+	float: none;
+	margin-top: 20px;
+}
+
+.course_actions li {
+	margin: 0 23px;
+	padding: 0 0 0 53px;
+	position: relative;
+}
+
+.course_actions img {
+	width: auto;
+	height: 36px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.employee {
+	padding: 28px 30px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+}
+
+.employee .t {
+	-webkit-box-ordinal-group: 3;
+	    -ms-flex-order: 2;
+	        order: 2;
+	text-align: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+}
+
+.employee .name {
+	-webkit-box-ordinal-group: 3;
+	    -ms-flex-order: 2;
+	        order: 2;
+	margin: 0;
+}
+
+.employee .ava {
+	-webkit-box-ordinal-group: 2;
+	    -ms-flex-order: 1;
+	        order: 1;
+	margin: 2px 0 14px 0;
+}
+
+.employee .link {
+	-webkit-box-ordinal-group: 2;
+	    -ms-flex-order: 1;
+	        order: 1;
+	margin: 0 10px 0 0;
+	line-height: 30px;
+	text-align: left;
+	-ms-flex-item-align: center;
+	    -ms-grid-row-align: center;
+	    align-self: center;
+}
+
+.side_l .reviews_slider {
+	padding-right: 30px;
+}
+
+.side_l .reviews_slider:first-child {
+	padding-top: 0;
+}
+
+.bank_contacts {
+	margin-top: -8px;
+	margin-bottom: 4px;
+}
+
+.bank_cards .slick-list {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.bank_cards li {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.header_menu .main > li {
+	width: 25%;
+}
+
+.bottom_menu {
+	display: none;
+}
+
+.bmenu {
+	font-size: 13px;
+}
+
+.other_offers,
+.form_calc {
+	display: none;
+}
+
+.bidding_slider .el {
+	width: 271px;
+}
+
+.filter_info {
+	font-size: 13px;
+}
+
+.filter_info .c {
+	margin: 0 -14px;
+}
+
+.filter_info .c > * {
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
+.modal {
+	padding: 0;
+}
+
+.form_el_wid5,
+.form_el_wid6 {
+	width: 25%;
+}
+}
