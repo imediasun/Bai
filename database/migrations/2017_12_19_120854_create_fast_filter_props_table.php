@@ -15,6 +15,11 @@ class CreateFastFilterPropsTable extends Migration
     {
         Schema::create('fast_filter_props', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('fast_filter_id');
+            $table->string('product_field');
+            $table->string('sign')->default('=');
+            $table->string('value');
+
             $table->timestamps();
         });
     }

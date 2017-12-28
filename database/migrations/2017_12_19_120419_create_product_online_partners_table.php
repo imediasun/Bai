@@ -15,7 +15,14 @@ class CreateProductOnlinePartnersTable extends Migration
     {
         Schema::create('product_online_partners', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('partner_id')->nullable();
+            $table->string('type')->comment('bank, shark, etc');
+            $table->string('email')->nullable();
+            $table->string('name')->nullable();
+            $table->boolean('is_active')->default(true);
+
             $table->timestamps();
+
         });
     }
 

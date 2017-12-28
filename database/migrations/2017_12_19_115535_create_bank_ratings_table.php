@@ -15,6 +15,15 @@ class CreateBankRatingsTable extends Migration
     {
         Schema::create('bank_ratings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('bank_id')->nullable();
+            $table->string('bank_name');
+            $table->string('type');
+            $table->string('date_select');
+            $table->decimal('amount', 10, 2);
+            $table->decimal('growth_month', 10, 2);
+            $table->decimal('growth_year_begin', 10, 2);
+
+
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ class CreateFooterGroupsTable extends Migration
     {
         Schema::create('footer_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title_ru')->nullable();
+            $table->string('title_kz')->nullable();
             $table->timestamps();
         });
     }

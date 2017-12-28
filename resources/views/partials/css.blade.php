@@ -7,3 +7,5 @@
 <link href="{{ asset('css/mobile.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/comments.css') }}">
+@yield('css')
+

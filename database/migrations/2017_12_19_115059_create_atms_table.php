@@ -15,6 +15,19 @@ class CreateAtmsTable extends Migration
     {
         Schema::create('atms', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('bank_id')->nullable();
+            $table->integer('city_id')->nullable();
+            $table->double('latitude', 8, 2)->comment('широта');
+            $table->double('longitude', 8, 2)->comment('долгота');
+            $table->string('address_ru')->nullable();
+            $table->string('address_kz')->nullable();
+            $table->string('notes_ru')->nullable();
+            $table->string('notes_kz')->nullable();
+            $table->string('service')->nullable();
+            $table->boolean('is_cashin')->default(false);
+            $table->boolean('is_multicurrency')->default(false);
+
+
             $table->timestamps();
         });
     }

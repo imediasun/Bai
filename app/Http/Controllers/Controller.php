@@ -12,10 +12,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public $locale = null;
+    public $credit_period = [];
 
     function __construct()
     {
-        parent::__construct();
         $this->locale = app()->getLocale();
     }
 }

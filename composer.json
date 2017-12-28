@@ -26,6 +26,12 @@
             "database/seeds",
             "database/factories"
         ],
+        "files":[
+            "app/Http/Helpers/SypexGeo/SxGeo.php",
+            "app/Http/Helpers/SypexGeo/GeoHelper.php",
+            "app/Http/Helpers/CommonHelper.php",
+            "app/Http/Helpers/SeoHelper.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }

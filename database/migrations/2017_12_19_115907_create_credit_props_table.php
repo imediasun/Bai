@@ -15,6 +15,21 @@ class CreateCreditPropsTable extends Migration
     {
         Schema::create('credit_props', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('credit_id');
+
+            $table->integer('min_amount')->nullable();
+            $table->integer('max_amount')->nullable();
+
+            $table->integer('min_period')->nullable();
+            $table->integer('max_period')->nullable();
+
+            $table->double('percent_rate', 8, 2)->nullable();
+            $table->string('currency')->nullable();
+            $table->boolean('income_confirmation')->nullable();
+            $table->string('repayment_structure')->nullable()->comment('схема погашения');
+            $table->boolean('gesv')->nullable();
+
+
             $table->timestamps();
         });
     }

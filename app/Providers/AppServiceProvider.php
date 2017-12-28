@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Helpers\SypexGeo\GeoHelper;
+use App\SeoRecord;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +17,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+//        $geo = new GeoHelper();
+//        $city = $geo->getCityFromSession();
+//        $shared = [
+//            'city' => $city,
+////            'city' => $city,
+//        ];
+//        view()->share('shared', $shared);
     }
 
     /**

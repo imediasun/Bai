@@ -15,6 +15,15 @@ class CreateFaqsTable extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('seo_records_id');
+            $table->text('question_ru')->nullable();
+            $table->text('question_kz')->nullable();
+            $table->text('answer_ru')->nullable();
+            $table->text('answer_kz')->nullable();
+            $table->string('url')->nullable();
+            $table->boolean('is_approved')->default(true);
+
+
             $table->timestamps();
         });
     }

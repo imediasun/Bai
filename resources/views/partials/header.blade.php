@@ -6,7 +6,7 @@
         <div class="main_content">
             <div class="main_indent">
                 <div class="header_menu_toggle">
-                    <div class="toggle_city"> <span class="opt_link">{{ city_manager.getCity().name }}</span>
+                    <div class="toggle_city"> <span class="opt_link">{{ $shared['city']['name_ru'] }}</span>
                         <div class="ic ic_select white"></div>
                     </div>
                     <!-- end .toggle_city-->
@@ -45,98 +45,98 @@
                 <ul class="main">
                     <li><strong>Кредиты</strong>
                         <ul>
-                            <li><a href="{{ path('credit_page', {'altName': currentCity['altName']}) }}">Потребительские</a></li>
+                            <li><a href="#">Потребительские</a></li>
                         </ul>
                     </li>
                     <li><strong>Ипотека</strong>
                         <ul>
-                            <li><a href="{{ path('mortgage_page', {'altName': currentCity['altName']}) }}">Без первоначального залога</a></li>
+                            <li><a href="#">Без первоначального залога</a></li>
                         </ul>
                     </li>
                     <li><strong>Депозиты</strong>
                         <ul>
-                            <li><a href="{{ path('deposit_page', {'altName': currentCity['altName']}) }}">Выгодные депозиты</a></li>
+                            <li><a href="#">Выгодные депозиты</a></li>
                         </ul>
                     </li>
                     <li><strong>Курсы валют</strong>
                         <ul>
-                            {#<li><a href="#">Добавить обменник</a></li>#}
-                            <li><a href="{{ path('exchange_rates_index') }}">Курсы в вашем городе</a></li>
+                            {{--{#<li><a href="#">Добавить обменник</a></li>#}--}}
+                            <li><a href="#">Курсы в вашем городе</a></li>
                         </ul>
                     </li>
                     <li><strong>Автокредиты</strong>
                         <ul>
-                            <li><a href="{{ path('auto_credit_page', {'altName': currentCity['altName']}) }}">На новую машину</a></li>
+                            <li><a href="#">На новую машину</a></li>
                         </ul>
                     </li>
                     <li><strong>Микрозаймы</strong>
                         <ul>
-                            <li><a href="{{ path('loan_page', {'altName': currentCity['altName']}) }}">Терпимые</a></li>
+                            <li><a href="#">Терпимые</a></li>
                         </ul>
                     </li>
                     <li><strong>Карты</strong>
                         <ul>
-                            <li><a href="{{ path ('debitcard_page', {'altName': currentCity['altName']}) }}">Дебетовые</a></li>
-                            <li><a href="{{ path('creditcard_page', {'altName': currentCity['altName']}) }}">Кредитные</a></li>
+                            <li><a href="#">Дебетовые</a></li>
+                            <li><a href="#">Кредитные</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
             <!-- end .main_indent-->
         </nav>
-        {#{% include 'top-menu.html.twig' %}#}
+        {{--{#{% include 'top-menu.html.twig' %}#}--}}
         <!-- end .header_menu-->
         <nav class="header_menu city">
             <div class="main_indent">
-                <ul class="main">
-                    {% set cities = app_tools.getAllCities() %}
-                    {% set oldLetter = cities[0].name|slice(0,1)|upper %}
-                    <li>
-                        <div class="page_header_location_list_h">{{ oldLetter }}</div>
-                        <ul>
-                            {% for city in app_tools.getAllCities() %}
-                            {% set cityLetter = city.name|slice(0,1)|upper %}
-                            {% if oldLetter != cityLetter %}
-                        </ul>
-                    </li>
-                    <li>
-                        <div class="page_header_location_list_h">{{ cityLetter }}</div>
-                        <ul>
-                            {% set oldLetter = cityLetter %}
-                            {% endif %}
-                            {#<li><a href="{% if routePrefix != '' %}{{ path(routePrefix ~ 'page', {'altName': city.altName}) }}{% else %}#{% endif %}" class="city-link" data-city-name="{{ city.altName }}">{{ city.name|capitalize }}</a></li>#}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
+                {{--<ul class="main">--}}
+                    {{--{% set cities = app_tools.getAllCities() %}--}}
+                    {{--{% set oldLetter = cities[0].name|slice(0,1)|upper %}--}}
+                    {{--<li>--}}
+                        {{--<div class="page_header_location_list_h">{{ oldLetter }}</div>--}}
+                        {{--<ul>--}}
+                            {{--{% for city in app_tools.getAllCities() %}--}}
+                            {{--{% set cityLetter = city.name|slice(0,1)|upper %}--}}
+                            {{--{% if oldLetter != cityLetter %}--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<div class="page_header_location_list_h">{{ cityLetter }}</div>--}}
+                        {{--<ul>--}}
+                            {{--{% set oldLetter = cityLetter %}--}}
+                            {{--{% endif %}--}}
+                            {{--{#<li><a href="{% if routePrefix != '' %}{{ path(routePrefix ~ 'page', {'altName': city.altName}) }}{% else %}#{% endif %}" class="city-link" data-city-name="{{ city.altName }}">{{ city.name|capitalize }}</a></li>#}--}}
+                            {{--{% endfor %}--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
             </div>
 
             <!-- end .main_indent-->
         </nav>
-        {% if routePrefix == '' %}
-            <script type="text/javascript">
-                $('.city-link').on('click', function() {
-                    var city = $(this).data('city-name');
-                    $.ajax({
-                        url: Routing.generate('ajax_set_city'),
-                        async: false,
-                        cache: false,
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            city: city,
-                            route: '{{ app.request.attributes.get('_route') }}',
-                            routeParams: '{{ app.request.attributes.get('_route_params')|json_encode() }}'
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(textStatus + ': ' + errorThrown);
-                        }
-                    }).done(function (response) {
-                        window.location.href = response.href;
-                    });
-                });
-            </script>
-        {% endif %}
+        {{--{% if routePrefix == '' %}--}}
+            {{--<script type="text/javascript">--}}
+                {{--$('.city-link').on('click', function() {--}}
+                    {{--var city = $(this).data('city-name');--}}
+                    {{--$.ajax({--}}
+                        {{--url: Routing.generate('ajax_set_city'),--}}
+                        {{--async: false,--}}
+                        {{--cache: false,--}}
+                        {{--type: "POST",--}}
+                        {{--dataType: "json",--}}
+                        {{--data: {--}}
+                            {{--city: city,--}}
+                            {{--route: '{{ app.request.attributes.get('_route') }}',--}}
+                            {{--routeParams: '{{ app.request.attributes.get('_route_params')|json_encode() }}'--}}
+                        {{--},--}}
+                        {{--error: function (jqXHR, textStatus, errorThrown) {--}}
+                            {{--alert(textStatus + ': ' + errorThrown);--}}
+                        {{--}--}}
+                    {{--}).done(function (response) {--}}
+                        {{--window.location.href = response.href;--}}
+                    {{--});--}}
+                {{--});--}}
+            {{--</script>--}}
+        {{--{% endif %}--}}
         <!-- end .header_menu-->
     </div>
     <!-- end .container-->
