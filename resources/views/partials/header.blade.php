@@ -6,7 +6,7 @@
         <div class="main_content">
             <div class="main_indent">
                 <div class="header_menu_toggle">
-                    <div class="toggle_city"> <span class="opt_link">{{ $shared['city']['name_ru'] }}</span>
+                    <div class="toggle_city"> <span class="opt_link">{{--{{ $shared['city']['name_ru'] }}--}}</span>
                         <div class="ic ic_select white"></div>
                     </div>
                     <!-- end .toggle_city-->

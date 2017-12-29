@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Bank;
 use App\CreditProp;
 use App\CreditPropFee;
 use App\CustomProp;
@@ -27,7 +28,9 @@ class AjaxController extends Controller
             session(['props_cnt' => ++$val]);
         }
 
-        return view('admin.credits.add.add_product_props', compact('val'));
+        $banks = Bank::all();
+
+        return view('admin.credits.add.add_product_props', compact('val', 'banks'));
     }
 
     public function getCustomProp()

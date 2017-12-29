@@ -1,12 +1,3 @@
-{{--@php--}}
-    {{--@if(isset($prop->id) && isset($fee_block->id))--}}
-        {{--@php--}}
-            {{--$prop_number = $prop->id;--}}
-            {{--$fee_number = $fee_block->id;--}}
-        {{--@endphp--}}
-    {{--@endif--}}
-
-{{--@endphp--}}
 <div class="panel panel-fee">
 
     <div class="panel-heading">

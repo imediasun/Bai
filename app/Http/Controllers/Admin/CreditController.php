@@ -16,6 +16,7 @@ use App\FeeType;
 use App\FeeValue;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -111,7 +112,6 @@ class CreditController extends Controller
     {
         if (!$request->ajax()) {
 
-
         $credit_arr = [
             'bank_id' => $request->bank,
             'name_ru' => $request->name_ru,
@@ -141,19 +141,21 @@ class CreditController extends Controller
             'other_claims_ru' => $request->other_claims_ru,
             'other_claims_kz'  => $request->other_claims_kz,
             'have_mobile_phone'  => $request->have_mobile_phone ?? false,
+            'have_work_phone'  => false,
             'have_early_repayment' => $request->have_early_repayment ?? false,
             'debtor_category' => $request->debtor_category,
             'credit_goal'  => $request->credit_goal,
-            'age' => $request->age,
             'receive_mode'  => $request->receive_mode,
             'registration'   => $request->registration,
             'time_for_consideration'    => $request->time_for_consideration,
-            'income_project'    => $request->income_project,
             'credit_history'     => $request->credit_history,
             'credit_formalization'     => $request->credit_formalization,
-            'client_type'  => $request->client_type,
             'is_approved'  => $request->is_approved ?? false,
             'have_constant_income'  => $request->have_constant_income ?? false,
+            'changed_by'  => Auth::id(),
+            'created_by'  => Credit::find($id) == null ? Auth::id() : null,
+            'gesv'  => $request->gesv,
+
         ];
 
         $credit = Credit::updateOrCreate(['id' => $id ?? 0], $credit_arr);
@@ -175,10 +177,14 @@ class CreditController extends Controller
                     'percent_rate'  => $credit_props_input['percent_rate'][$key],
                     'currency'  => $credit_props_input['currency'][$key],
                     'income_confirmation'  => $credit_props_input['income_confirmation'][$key],
-                    'gesv'  => $credit_props_input['gesv'][$key],
                     'repayment_structure'  => $credit_props_input['repayment_structure'][$key],
                     'credit_security'  => $credit_props_input['credit_security'][$key],
                     'credit_id'  => $credit->id,
+                    'age' => $credit_props_input['age'][$key],
+                    'income_project'    => $credit_props_input['income_project'][$key],
+                    'client_type'  => $credit_props_input['client_type'][$key],
+//                    'changed_by',
+//                    'created_by',
                 ];
 
                 $credit_prop = CreditProp::updateOrCreate(['id' => $credit_props_input['id'][$key] ?? 0], $credit_props_arr);

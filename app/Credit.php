@@ -24,6 +24,7 @@ class Credit extends Model
         'meta_title_ru',
         'meta_title_kz',
         'changed_by',
+        'created_by',
         'sort_order',
         'h1_ru',
         'h1_kz',
@@ -34,6 +35,7 @@ class Credit extends Model
         'occupational_current',
         'have_constant_income',
         'have_mobile_phone',
+        'have_work_phone',
         'have_early_repayment',
         'have_prolongation',
         'have_citizenship',
@@ -45,14 +47,12 @@ class Credit extends Model
         'other_claims_kz',
         'debtor_category',
         'credit_goal',
-        'age',
         'receive_mode',
         'registration',
         'time_for_consideration',
-        'income_project',
         'credit_history',
         'credit_formalization',
-        'client_type',
+        'gesv',
     ];
 
     public function props()

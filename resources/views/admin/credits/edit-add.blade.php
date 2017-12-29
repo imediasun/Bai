@@ -241,6 +241,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="credit_props">ГЭСВ</label>
+                                                <input type="text" class="form-control" name="gesv" placeholder="в %" value="@if(isset($dataTypeContent->gesv)){{ $dataTypeContent->gesv }}@endif">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -351,13 +359,7 @@
                                         ]
                                     ])
 
-                                    <div class="form-group">
-                                        <label for="credit_props">Возраст</label>
-                                        <select name="age" class="form-control">
-                                            <option @if(isset($dataTypeContent->age) && $dataTypeContent->age == '18'){{ 'selected' }}@endif value="18">от 18 лет</option>
-                                            <option @if(isset($dataTypeContent->age) && $dataTypeContent->age == '18-63'){{ 'selected' }}@endif value="18-63">от 23 до 63 лет</option>
-                                        </select>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="credit_props">Способ получения</label>
                                         <select name="receive_mode" class="select2">
@@ -388,16 +390,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="credit_props">Зарплатный проект</label>
-                                        <select name="income_project" class="select2">
-                                            <option value=""></option>
-                                            @foreach($banks as $bank)
-                                                <option @if(isset($dataTypeContent->income_project) && $dataTypeContent->income_project == $bank->id){{ 'selected="selected"' }}@endif value="{{$bank->id}}">{{$bank->name_ru}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="credit_props">Кредитная история</label>
                                         <select name="credit_history" class="select2">
                                             <option @if(isset($dataTypeContent->credit_history) && $dataTypeContent->credit_history == 'positive'){{ 'selected="selected"' }}@endif value="positive">положительная кредитная история</option>
@@ -411,15 +403,6 @@
                                             <option @if(isset($dataTypeContent->credit_formalization) && $dataTypeContent->credit_formalization == 'online'){{ 'selected="selected"' }}@endif value="online">онлайн заявка</option>
                                             <option @if(isset($dataTypeContent->credit_formalization) && $dataTypeContent->credit_formalization == 'office'){{ 'selected="selected"' }}@endif value="office">в отделении банка</option>
                                             <option @if(isset($dataTypeContent->credit_formalization) && $dataTypeContent->credit_formalization == 'both'){{ 'selected="selected"' }}@endif value="both">в отделений банка и онлайн заявка</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="credit_props">Тип клиента</label>
-                                        <select name="client_type" class="select2">
-                                            <option @if(isset($dataTypeContent->client_type) && $dataTypeContent->client_type == 'standard'){{ 'selected="selected"' }}@endif value="standard">стандарт</option>
-                                            <option @if(isset($dataTypeContent->client_type) && $dataTypeContent->client_type == 'vip'){{ 'selected="selected"' }}@endif value="vip">vip</option>
-                                            <option @if(isset($dataTypeContent->client_type) && $dataTypeContent->client_type == 'vip_elite'){{ 'selected="selected"' }}@endif value="vip_elite">vip-elite</option>
                                         </select>
                                     </div>
 

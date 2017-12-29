@@ -54,10 +54,7 @@
         {{--</div>--}}
 
         {{--<div class="row">--}}
-            <div class="col-md-2">
-                <label for="credit_props">ГЭСВ</label>
-                <input type="text" class="form-control" name="credit_props[gesv][{{$val}}]" placeholder="%" value="@if(isset($prop->gesv)){{ $prop->gesv }}@endif">
-            </div>
+
             <div class="col-md-2">
                 <label for="credit_props">Схема погашения</label>
                 <select name="credit_props[repayment_structure][{{$val}}]" class="form-control">
@@ -78,6 +75,31 @@
                     <option @if(isset($prop->credit_security) && $prop->credit_security == 'money' ) selected @endif value="money">залог - денежные средства</option>
                 </select>
             </div>
+            <div class="col-md-2">
+                <label for="credit_props">Возраст</label>
+                <select name="credit_props[age][{{$val}}]" class="form-control">
+                    <option @if(isset($prop->age) && $prop->age == '18'){{ 'selected' }}@endif value="18">от 18 лет</option>
+                    <option @if(isset($prop->age) && $prop->age == '23-63'){{ 'selected' }}@endif value="23-63">от 23 до 63 лет</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="credit_props">Зарплатный проект</label>
+                <select name="credit_props[income_project][{{$val}}]" class="select2">
+                    <option value=""></option>
+                    @foreach($banks as $bank)
+                        <option @if(isset($prop->income_project) && $prop->income_project == $bank->id){{ 'selected="selected"' }}@endif value="{{$bank->id}}">{{$bank->name_ru}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="credit_props">Тип клиента</label>
+                <select name="credit_props[client_type][{{$val}}]" class="select2">
+                    <option @if(isset($prop->client_type) && $prop->client_type == 'standard'){{ 'selected="selected"' }}@endif value="standard">стандарт</option>
+                    <option @if(isset($prop->client_type) && $prop->client_type == 'vip'){{ 'selected="selected"' }}@endif value="vip">vip</option>
+                    <option @if(isset($prop->client_type) && $prop->client_type == 'vip_elite'){{ 'selected="selected"' }}@endif value="vip_elite">vip-elite</option>
+                </select>
+            </div>
         </div>
         <input type="hidden" value="@isset($prop->id){{$prop->id}}@endisset" name="credit_props[id][{{$val}}]">
 
@@ -92,6 +114,8 @@
     <button class="btn btn-info btn-add-fees">+ комиссии</button>
     <script>
         $(function () {
+
+            $('.select2').select2({ dropdownAutoWidth: true, width: '100%', });
 
             function delete_prop_button(id, block) {
                 var data = {
