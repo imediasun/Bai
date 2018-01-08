@@ -10,4 +10,9 @@ class Bank extends Model
     {
         return $this->belongsTo('App\Bank', 'parent_id', 'id');
     }
+
+    public function credits()
+    {
+        return $this->hasMany('App\Credit');
+    }
 }

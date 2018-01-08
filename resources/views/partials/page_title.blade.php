@@ -1,13 +1,13 @@
 <div class="main_head main_indent">
-{{--    {{ wo_render_breadcrumbs({separator: '/', separatorClass: 'sep'}) }}--}}
-    {{--{% if product_type == 'credit_cards' %} {#TODO [nkl90]: избавиться от этого#}--}}
-    <div class="h1 title_tabs">
-        <a class="tab active" href="#"><span class="opt_link">Кредитные карты</span></a>
-        <a class="tab" href="#"><span class="opt_link">Дебетовые карты</span></a>
-    </div>
-    {{--{% elseif product_type == 'debet_cards' %}--}}
-    {{--<div class="h1 title_tabs"> <a class="tab" href="{{ path('creditcard_page', {'altName': city.altName}) }}"><span class="opt_link">Кредитные карты</span></a> <a class="tab active" href="#"><span class="opt_link">Дебетовые карты</span></a> </div>--}}
-    {{--{% endif %}--}}
+    {{--{{ Breadcrumbs::render('credits') }}--}}
+    @if ($product_type == 'credit_cards' )
+        <div class="h1 title_tabs">
+            <a class="tab active" href="#"><span class="opt_link">Кредитные карты</span></a>
+            <a class="tab" href="#"><span class="opt_link">Дебетовые карты</span></a>
+        </div>
+    @elseif ($product_type == 'debit_cards' )
+        <div class="h1 title_tabs"> <a class="tab" href="#"><span class="opt_link">Кредитные карты</span></a> <a class="tab active" href="#"><span class="opt_link">Дебетовые карты</span></a> </div>
+    @endif
 
     <header class="page_title">
         <div class="page_title_in page_title_bank">

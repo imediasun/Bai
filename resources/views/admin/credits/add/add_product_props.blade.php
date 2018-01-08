@@ -65,7 +65,7 @@
             <div class="col-md-3">
                 <label for="credit_props">Обеспечение</label>
                 <select name="credit_props[credit_security][{{$val}}]" class="form-control">
-                    <option @if(isset($prop->credit_security) && $prop->credit_security == 'none' ) selected @endif value="none">без залога и поручительства</option>
+                    <option @if(isset($prop->credit_security) && $prop->credit_security == 'without-security' ) selected @endif value="none">без залога и поручительства</option>
                     <option @if(isset($prop->credit_security) && $prop->credit_security == 'guarantor' ) selected @endif value="guarantor">поручитель</option>
                     <option @if(isset($prop->credit_security) && $prop->credit_security == 'deposit' ) selected @endif value="deposit">залог - депозит</option>
                     <option @if(isset($prop->credit_security) && $prop->credit_security == 'immovables_current' ) selected @endif value="immovables_current">залог - имеющееся недвижимость</option>

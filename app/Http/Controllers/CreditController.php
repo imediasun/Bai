@@ -11,15 +11,42 @@ use Illuminate\Http\Request;
 
 class CreditController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $credits = Credit::all();
+        $all = $request->all();
+        if(empty($request->all())){
+            foreach ($credits as $credit) {
+                $rate = $credit->props()->where('percent_rate', '!=', null)->min('percent_rate');
 
-        return view('credit.index');
+                $options['initial_fee'] = $all['initial_fee']??0;
+                $options['rate'] = $all['rate']?? $rate;
+                $options['tot'] = $all['calc[tot]']??300000;
+                $options['period'] = $all['calc[period]']??12;
+
+                $result = \CalcHelper::calculate_credit(12, $options['tot'], $options['rate'], 1, $options['initial_fee']);
+                $credit->ppm = $result['ppm'][0];
+                $credit->overpay = $result['procentAmount'];
+            }
+        }
+        else{
+
+        }
+
+        $result = [
+            'credits' => $credits
+        ];
+
+        return view('credit.index', $result);
     }
 
-    public function creditsByBank()
+    public function creditsByBank($bank)
     {
+        $credits = Credit::leftJoin('banks', 'credits.bank_id', '=', 'bank.id')
+            ->where('bank_alt_name_ru', '=', $bank);
+
+
+
 
     }
 
@@ -38,16 +65,17 @@ class CreditController extends Controller
 
     }
 
-    public function filterByUrl($object, $city = null)
+    public function filterByUrl(Request $request, $object, $city = null)
     {
         $result = [];
         $where = [];
+        $all = $request->all();
         //если параметр $city пустой, значит, это либо быстрый фильтр либо банк
         if($city == null){
             
             // проверяем, банк ли это
             $bank = Bank::where('alt_name_'.$this->locale, $object)
-                ->where('is_main', true)
+                ->where('parent_id', null)
                 ->first();
 
             // если банк не найден - то это ff
@@ -80,9 +108,27 @@ class CreditController extends Controller
                 //todo: find credits by ff
                 $credits = [];
 
-            }else{
+            }
+            else{
                 $credits = $bank->credits;
+                foreach ($credits as $credit) {
+                    $rate = $credit->props()->where('percent_rate', '!=', null)->min('percent_rate');
 
+                    $options['initial_fee'] = $all['initial_fee']??0;
+                    $options['rate'] = $all['rate']?? $rate;
+                    $options['tot'] = $all['calc[tot]']??300000;
+                    $options['period'] = $all['calc[period]']??12;
+
+                    $result = \CalcHelper::calculate_credit(12, $options['tot'], $options['rate'], 1, $options['initial_fee']);
+                    $credit->ppm = $result['ppm'][0];
+                    $credit->overpay = $result['procentAmount'];
+                }
+
+                $result = [
+                    'credits' => $credits
+                ];
+
+                return view('credit.index', $result);
             }
             
 

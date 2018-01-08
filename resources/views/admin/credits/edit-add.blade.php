@@ -225,7 +225,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="credit_props">Минимальный доход</label>
-                                                <input type="text" class="form-control" name="minimum_income" placeholder="в тенге" value="@if(isset($dataTypeContent->seo_title)){{ $dataTypeContent->seo_title }}@endif">
+                                                <input type="text" class="form-control" name="minimum_income" placeholder="в тенге" value="@if(isset($dataTypeContent->minimum_income)){{ $dataTypeContent->minimum_income }}@endif">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -242,10 +242,29 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="credit_props">ГЭСВ</label>
                                                 <input type="text" class="form-control" name="gesv" placeholder="в %" value="@if(isset($dataTypeContent->gesv)){{ $dataTypeContent->gesv }}@endif">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="credit_props">Страхование</label>
+                                                <select name="insurance" class="form-control">
+                                                    <option @if(isset($dataTypeContent->insurance) && $dataTypeContent->insurance == 'voidable') selected @endif value="one_time_percent">не обязательно</option>
+                                                    <option @if(isset($dataTypeContent->insurance) && $dataTypeContent->insurance == 'one_time_percent') selected @endif value="one_time_percent">разово в % от кредита</option>
+                                                    <option @if(isset($dataTypeContent->insurance) && $dataTypeContent->insurance == 'one_time_amount') selected @endif value="one_time_amount">разово в сумме</option>
+                                                    <option @if(isset($dataTypeContent->insurance) && $dataTypeContent->insurance == 'not_less_then_amount') selected @endif value="not_less_then_amount">не менее</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="credit_props">Страхование (комментарий)</label>
+                                                <input type="text" class="form-control" name="insurance_input" placeholder="" value="@if(isset($dataTypeContent->insurance_input)){{ $dataTypeContent->insurance_input }}@endif">
+
+                                                {{--<textarea name="insurance_input" class="form-control" id="insurance_input" cols="30" rows="10">@if(isset($dataTypeContent->insurance_input)){{ $dataTypeContent->insurance_input }}@endif</textarea>--}}
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +304,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input value="1" type="checkbox" @if(isset($dataTypeContent->have_work_phone) && $dataTypeContent->have_work_phone){{ 'checked=checked' }}@endif class="checkbox" name="have_work_phone">
-                                                Наличие мобильного телефона
+                                                Наличие рабочего телефона
                                             </label>
                                         </div>
                                     </div>
@@ -308,7 +327,7 @@
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input value="1" type="checkbox" @if(isset($dataTypeContent->have_mobile_phone) && $dataTypeContent->have_mobile_phone){{ 'checked=checked' }}@endif class="checkbox" name="have_citizenship">
+                                                <input value="1" type="checkbox" @if(isset($dataTypeContent->have_citizenship) && $dataTypeContent->have_citizenship){{ 'checked=checked' }}@endif class="checkbox" name="have_citizenship">
                                                 Резидент (гражданство)
                                             </label>
                                         </div>
@@ -362,11 +381,19 @@
 
                                     <div class="form-group">
                                         <label for="credit_props">Способ получения</label>
-                                        <select name="receive_mode" class="select2">
-                                            <option @if(isset($dataTypeContent->receive_mode) && $dataTypeContent->receive_mode == 'cash'){{ 'selected' }}@endif value="cash">наличными</option>
-                                            <option @if(isset($dataTypeContent->receive_mode) && $dataTypeContent->receive_mode == 'bank_card'){{ 'selected' }}@endif value="bank_card">на банковскую карту</option>
-                                            <option @if(isset($dataTypeContent->receive_mode) && $dataTypeContent->receive_mode == 'bank_account'){{ 'selected' }}@endif value="bank_account">на банковский счет</option>
-                                            <option @if(isset($dataTypeContent->receive_mode) && $dataTypeContent->receive_mode == 'none'){{ 'selected' }}@endif value="none">не требуется</option>
+                                        <select name="receive_mode[]" class="select2" multiple="multiple">
+                                            @if(isset($dataTypeContent->receive_mode) && json_decode($dataTypeContent->receive_mode) != null)
+                                                <option @if(in_array('cash',json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="cash">наличными</option>
+                                                <option @if(in_array('bank_card',json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="bank_card">на банковскую карту</option>
+                                                <option @if(in_array('bank_account',json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="bank_account">на банковский счет</option>
+                                                <option @if(in_array('none', json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="none">не требуется</option>
+                                            @else
+                                                <option value="cash">наличными</option>
+                                                <option value="bank_card">на банковскую карту</option>
+                                                <option value="bank_account">на банковский счет</option>
+                                                <option value="none">не требуется</option>
+                                            @endif
+
                                         </select>
                                     </div>
                                     <div class="form-group">

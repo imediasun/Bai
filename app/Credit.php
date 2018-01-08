@@ -8,6 +8,8 @@ class Credit extends Model
 {
     protected $fillable = [
         'bank_id',
+        'insurance',
+        'insurance_input',
         'name_ru',
         'name_kz',
         'alt_name_ru',
@@ -55,6 +57,11 @@ class Credit extends Model
         'gesv',
     ];
 
+    public function bank()
+    {
+        return $this->belongsTo('App\Bank');
+    }
+
     public function props()
     {
         return $this->hasMany('App\CreditProp');
@@ -64,4 +71,14 @@ class Credit extends Model
     {
         return $this->hasMany('App\CustomProp');
     }
+
+//    public function scopeppm($query, $id)
+//    {
+//        return $query->where('');
+//    }
+
+//    public function ppm($id)
+//    {
+//        return 123;
+//    }
 }

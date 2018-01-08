@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $credit_period = \CommonHelper::getCreditTerms();
+        view()->share('credit_period', $credit_period);
+
 //        $geo = new GeoHelper();
 //        $city = $geo->getCityFromSession();
 //        $shared = [

@@ -28,7 +28,11 @@ Route::group(['prefix' => 'kredity'], function () {
 });
 
 Route::group(['prefix' => 'ajax'], function (){
-//    Route::post('');
+    Route::get('credit-calc', 'AjaxController@credit_calc')->name('ajax.credit_calc');
+});
+
+Route::group(['prefix' => 'test'], function (){
+    Route::get('fees', 'TestController@fee_test')->name('test.fee_test');
 });
 
 

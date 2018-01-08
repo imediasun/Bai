@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Alexander
- * Date: 27.12.2017
- * Time: 16:53
- */
 class CommonHelper
 {
     public static function translit($text, $maxLength = 64, $toLowCase = true)
@@ -61,5 +55,68 @@ class CommonHelper
         }
 
         return trim($text, '-');
+    }
+
+    public static function getCreditTerms($from = null, $to = null)
+    {
+        $timeArr = [
+            '1' => '1 месяц',
+            '3' => '3 месяца',
+            '6' => '6 месяцев',
+            '9' => '9 месяцев',
+            '12' => '1 год',
+            '18' => '1,5 года',
+            '24' => '2 года',
+            '36' => '3 года',
+            '48' => '4 года',
+            '60' => '5 лет',
+            '72' => '6 лет',
+            '84' => '7 лет',
+            '120' => '10 лет',
+            '180' => '15 лет',
+            '240' => '20 лет',
+            '300' => '25 лет',
+            '360' => '30 лет',
+        ];
+
+        $new_arr = [];
+        if ($from != null && $to != null) {
+            foreach ($timeArr as $key => $value) {
+                if ($key >= $from) {
+                    $new_arr[$key] = $value;
+                }
+                if ($key == $to) break;
+            }
+            return $new_arr;
+        } elseif ($from != null) {
+            foreach ($timeArr as $key => $value) {
+                if ($key >= $from) {
+                    $new_arr[$key] = $value;
+                }
+            }
+            return $new_arr;
+        } elseif ($to != null) {
+            foreach ($timeArr as $key => $value) {
+                $new_arr[$key] = $value;
+                if ($key == $to) break;
+            }
+            return $new_arr;
+        } else {
+            return $timeArr;
+        }
+    }
+
+    public static function getFastFilters($productName = 'CREDIT')
+    {
+        $fastFilters = \App\FastFilter::where('product_type', $productName)->
+                                        where('is_approved', true)->orderBy('sort_order');
+
+//        $fastFilters = $this->em->getRepository('AppBundle:FastFilter')->findBy([
+//            'product' => $this->em->getRepository('AppBundle:Product')->findOneByName($productName),
+//            'approved' => 1,
+//        ], ['sortOrder' => 'ASC']);
+
+        return $fastFilters;
+
     }
 }

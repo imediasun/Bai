@@ -31,10 +31,10 @@
     {{--{% block head_javascripts %}{% endblock %}--}}
 </head>
 <body class="{% block page_class %}{% endblock %}">
-<input type="checkbox" class="outtaHere" id="show_aside_menu">
+    <input type="checkbox" class="outtaHere" id="show_aside_menu">
 {{--{% block body %}{% endblock %}--}}
 {{--@yield('body')--}}
-<div class="mainwrap">
+    <div class="mainwrap">
     <div class="mainbg_l"></div>
 
     {{--{% include 'common/header.html.twig' %}--}}
@@ -72,10 +72,10 @@
             </div>
         </div>
     </div>
+        @include('partials.js')
 
 </div>
 {{--@include('city_popup')--}}
-@include('partials.js')
 {{--{% include 'common/city_popup.html.twig' %}--}}
 {{--{# Footer JavaScripts Block #}--}}
 {{--{% block footer_javascripts %}{% endblock %}--}}

@@ -1,7 +1,9 @@
 @yield('scripts_head')
 
 <script src="https://yastatic.net/share2/share.js" async="async"></script>
-<script src="{{ asset('js/vendor/jquery-1.11.3.min.js') }}"></script>
+{{--<script src="{{ asset('js/vendor/jquery-1.11.3.min.js') }}"></script>--}}
+<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+
 <!-- JS Routing -->
 {{--<script src="{{ asset('js/router.js') }}"></script>--}}
 <script src="{{ asset('js/jquery.cookie.js') }}"></script>
