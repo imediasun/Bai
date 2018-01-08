@@ -263,9 +263,6 @@
                         @foreach($credits as $key => $credit)
                             @include('credit.index_credit_block')
                         @endforeach
-                        {{--{% for key, credit in credits %}--}}
-                        {{--{% include 'credit/index_credit_block.html.twig' %}--}}
-                        {{--{% endfor %}--}}
                     </div>
                     <div class="info_block">
                         <div class="pic"></div>

@@ -227,11 +227,23 @@
                                                 <label for="credit_props">Минимальный доход</label>
                                                 <input type="text" class="form-control" name="minimum_income" placeholder="в тенге" value="@if(isset($dataTypeContent->minimum_income)){{ $dataTypeContent->minimum_income }}@endif">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="minimum_income_comment">Комментарий (Минимальный доход)</label>
+                                                <textarea name="minimum_income_comment" class="form-control" id="minimum_income_comment">
+                                                    @if(isset($dataTypeContent->minimum_income_comment)){{ $dataTypeContent->minimum_income_comment }}@endif
+                                                </textarea>
+                                            </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="credit_props">Общий стаж работы</label>
                                                 <input type="text" class="form-control" name="occupational_life" placeholder="в месяцах" value="@if(isset($dataTypeContent->occupational_life)){{ $dataTypeContent->occupational_life }}@endif">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="occupational_life_comment">Комментарий (Общий стаж работы)</label>
+                                                <textarea name="occupational_life_comment" class="form-control" id="occupational_life_comment">
+                                                    @if(isset($dataTypeContent->occupational_life_comment)){{ $dataTypeContent->occupational_life_comment }}@endif
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -246,6 +258,14 @@
                                             <div class="form-group">
                                                 <label for="credit_props">ГЭСВ</label>
                                                 <input type="text" class="form-control" name="gesv" placeholder="в %" value="@if(isset($dataTypeContent->gesv)){{ $dataTypeContent->gesv }}@endif">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="gesv_comment">Комментарий (ГЭСВ)</label>
+                                                <textarea name="gesv_comment" class="form-control" id="gesv_comment">
+                                                    @if(isset($dataTypeContent->gesv_comment)){{ $dataTypeContent->gesv_comment }}@endif
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -317,6 +337,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="have_early_repayment_comment">Комментарий (Досрочное погашение)</label>
+                                        <textarea name="have_early_repayment_comment" class="form-control" id="have_early_repayment_comment">
+                                            @if(isset($dataTypeContent->have_early_repayment_comment)){{ $dataTypeContent->have_early_repayment_comment }}@endif
+                                        </textarea>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="checkbox">
                                             <label>
                                                 <input value="1" type="checkbox" @if(isset($dataTypeContent->have_prolongation) && $dataTypeContent->have_prolongation){{ 'checked=checked' }}@endif class="checkbox" name="have_prolongation">
@@ -345,6 +371,7 @@
                                     <div class="form-group">
                                         <label for="credit_props">Категория заемщика</label>
                                         <select name="debtor_category" class="select2">
+                                            <option value="none" @if(isset($dataTypeContent->debtor_category) && empty($dataTypeContent->debtor_category)){{ 'selected' }}@endif>не имеет значения</option>
                                             <option value="employee" @if(isset($dataTypeContent->debtor_category) && $dataTypeContent->debtor_category == 'employee'){{ 'selected' }}@endif>работник по найму</option>
                                             <option value="one_man_business" @if(isset($dataTypeContent->debtor_category) && $dataTypeContent->debtor_category == 'one_man_business'){{ 'selected' }}@endif>индивидуальные предприниматели</option>
                                             <option value="business_owners" @if(isset($dataTypeContent->debtor_category) && $dataTypeContent->debtor_category == 'business_owners'){{ 'selected' }}@endif>владельцы и совладельцы бизнеса</option>
@@ -382,6 +409,7 @@
                                     <div class="form-group">
                                         <label for="credit_props">Способ получения</label>
                                         <select name="receive_mode[]" class="select2" multiple="multiple">
+                                            <option value="">не имеет значения</option>
                                             @if(isset($dataTypeContent->receive_mode) && json_decode($dataTypeContent->receive_mode) != null)
                                                 <option @if(in_array('cash',json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="cash">наличными</option>
                                                 <option @if(in_array('bank_card',json_decode($dataTypeContent->receive_mode))){{ 'selected' }}@endif value="bank_card">на банковскую карту</option>
@@ -414,6 +442,13 @@
                                             <option @if(isset($dataTypeContent->time_for_consideration) && $dataTypeContent->time_for_consideration == 7){{ 'selected="selected"' }}@endif value="7">до 7 дней</option>
                                             <option @if(isset($dataTypeContent->time_for_consideration) && $dataTypeContent->time_for_consideration == 14){{ 'selected="selected"' }}@endif value="14">до 14 дней</option>
                                         </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="time_for_consideration_comment">Комментарий (срок рассмотрения)</label>
+                                        <textarea name="time_for_consideration_comment" class="form-control" id="time_for_consideration_comment">
+                                            @if(isset($dataTypeContent->time_for_consideration_comment)){{ $dataTypeContent->time_for_consideration_comment }}@endif
+                                        </textarea>
                                     </div>
 
                                     <div class="form-group">
@@ -485,6 +520,7 @@
                 e.preventDefault();
 
                 var panel = $(this).parents('.panel');
+                if (!confirm('Удалить блок?')) return;
                 delete_prop_button($(this).data('id'), panel);
             });
 
@@ -498,7 +534,7 @@
                 e.preventDefault();
 
                 var panel = $(this).parents('.panel');
-
+                if (!confirm('Удалить блок?')) return;
                 delete_custom_prop_button($(this).data('id'), panel);
             });
 
@@ -647,6 +683,7 @@
                 e.preventDefault();
 
                 var panel = $(this).parents('.panel-fee');
+                if (!confirm('Удалить блок?')) return;
                 delete_fee_button($(this).data('id'), panel);
             })
 

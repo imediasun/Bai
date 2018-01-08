@@ -157,6 +157,11 @@ class CreditController extends Controller
                 'gesv'  => $request->gesv,
                 'insurance'  => $request->insurance,
                 'insurance_input'  => $request->insurance_input,
+                'gesv_comment'  => $request->gesv_comment,
+                'time_for_consideration_comment'  => $request->time_for_consideration_comment,
+                'have_early_repayment_comment'  => $request->have_early_repayment_comment,
+                'occupational_life_comment'  => $request->occupational_life_comment,
+                'minimum_income_comment'  => $request->minimum_income_comment,
 
             ];
 
@@ -185,6 +190,14 @@ class CreditController extends Controller
                         'age' => $credit_props_input['age'][$key],
                         'income_project'    => $credit_props_input['income_project'][$key],
                         'client_type'  => $credit_props_input['client_type'][$key],
+                        'amount_comment'  => $credit_props_input['amount_comment'][$key],
+                        'currency_comment'  => $credit_props_input['currency_comment'][$key],
+                        'period_comment'  => $credit_props_input['period_comment'][$key],
+                        'percent_rate_comment'  => $credit_props_input['percent_rate_comment'][$key],
+                        'age_comment'  => $credit_props_input['age_comment'][$key],
+                        'income_confirmation_comment'  => $credit_props_input['income_confirmation_comment'][$key],
+                        'credit_security_comment'  => $credit_props_input['credit_security_comment'][$key],
+                        'repayment_structure_comment'  => $credit_props_input['repayment_structure_comment'][$key],
     //                    'changed_by',
     //                    'created_by',
                     ];
@@ -204,35 +217,7 @@ class CreditController extends Controller
 
                             $fee_inner['changed_by'] = Auth::id();
 
-//                            $fee_keys = array_keys($fee_inner);
-
-//                            foreach ($fee_keys as $fee_key) {
-
-
-//                                $fee_type = FeeType::where('alt_name_ru', $fee_key)
-//                                    ->where('product_type', 'credit')
-//                                    ->first();
-
-
-//                                if($fee_type != null){
-//                                    $fee_value = $fee_type->fee_values()->where('value', '=', $fee_inner[$fee_key])->first();
-//                                }
-//                                else{
-//                                    $fee_value = null;
-//                                }
-
-//                                if($fee_value != null){
-//                                    $credit_props_fees_arr = [
-//                                        'credit_id' => $credit->id,
-//                                        'credit_prop_id' => $credit_prop->id,
-//                                        'fee_type_id' => $fee_type->id,
-//                                        'fee_value_id' => $fee_value->id,
-//                                        'input' => $fee_inner[$fee_key.'_input'],
-//                                    ];
-
-                                    CreditPropFee::updateOrCreate(['id' => $fee_inner['fee_id'] ?? 0], $fee_inner);
-//                                }
-//                            }
+                            CreditPropFee::updateOrCreate(['id' => $fee_inner['fee_id'] ?? 0], $fee_inner);
                         }
                     }
                 }

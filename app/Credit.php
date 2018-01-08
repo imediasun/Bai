@@ -55,6 +55,11 @@ class Credit extends Model
         'credit_history',
         'credit_formalization',
         'gesv',
+        'gesv_comment',
+        'time_for_consideration_comment',
+        'have_early_repayment_comment',
+        'occupational_life_comment',
+        'minimum_income_comment',
     ];
 
     public function bank()

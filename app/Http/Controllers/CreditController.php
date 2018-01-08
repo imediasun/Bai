@@ -13,6 +13,7 @@ class CreditController extends Controller
 {
     public function index(Request $request)
     {
+        unset($_SESSION['compare']);
         $credits = Credit::all();
         $all = $request->all();
         if(empty($request->all())){

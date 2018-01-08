@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Credit;
+use App\CreditProp;
 use App\CreditPropFee;
 use Illuminate\Http\Request;
 
@@ -225,6 +226,33 @@ class AjaxController extends Controller
             ->get();
         foreach ($cr as $item) {
 
+            $credit_security = [
+                '' => 'без залога и поручительства',
+                'none' => 'без залога и поручительства',
+                'without-security' => 'без залога и поручительства',
+                'guarantor' => 'поручитель',
+                'deposit' => 'залог - депозит',
+                'immovables_current' => 'залог - имеющееся недвижимость',
+                'immovables_bying' => 'залог - приобретемая недвижимость',
+                'auto_current' => 'залог - имеющееся авто',
+                'auto_buying' => 'залог - приобретаемое авто',
+                'money' => 'залог - денежные средства',
+            ];
+
+            $currency = [
+                'kzt' => '₸',
+                'usd' => '$',
+                'eur' => '€',
+            ];
+
+            if(isset($credit_security[$item->credit_security])){
+                $item->credit_security = $credit_security[$item->credit_security];
+            }
+
+            if(isset($currency[$item->currency])){
+                $item->currency = $currency[$item->currency];
+            }
+
             $fees = CreditPropFee::where('credit_prop_id', $item['credit_props']['id'])->first();
 
             $fee_arr = [];
@@ -279,6 +307,82 @@ class AjaxController extends Controller
         }
 
         return response()->json(array('success' => true, 'html' => $returnHTML, 'cr' => $cr));
+
+    }
+
+    public function compare(Request $request, $product, $id)
+    {
+
+//        $exists = session()->has('compare.'.$product);
+        $exists = isset($_SESSION['compare'][$product]);
+
+        if(!$exists){
+            $compare = [
+                $product => [$id],
+            ];
+
+//            session('compare', $compare);
+            $_SESSION['compare'] = $compare;
+        }
+        else{
+//            $compare = session('compare');
+            $compare = $_SESSION['compare'];
+            $compare['credit'][] = $id;
+            $_SESSION['compare'] = $compare;
+
+//            session('compare', $compare);
+        }
+
+        $comparisonList = null;
+        if ($product == 'credit'){
+            $comparisonList = CreditProp::find($compare['credit']);
+            foreach ($comparisonList as $item) {
+                $item->logo = $item->credit->bank->logo;
+                $item->granting = $item->fees()->whereNotNull('granting_input')->first();
+                if($item->granting){
+                    $item->granting = $item->granting->granting_input;
+                }
+//                $fees[$item->id]['granting'] = $item->fees()->whereNotNull('granting_input')->first();
+            }
+        }
+
+
+        $returnHTML = '';
+//        foreach ($props as $item) {
+            $returnHTML = view('common.comparison_list')->with('products', $comparisonList)->render();
+//        }
+
+//        $compare = $this->get(CompareManager::class);
+//        $compare->init(Credit::class, 'kredity', ':templates:kredity_list.html.twig',$props);
+
+        return response()->json(array('success' => true, 'html' => $returnHTML, 'action' => 'add'));
+
+//        return $compare->$act($id);
+    }
+
+    public function compareList($product)
+    {
+//        $exists = session()->has('compare.'.$product);
+        $exists = isset($_SESSION['compare'][$product]);
+
+        if($exists){
+            if ($product == 'credit'){
+
+//                $compare = session('compare.'.$product);
+                $compare = $_SESSION['compare'][$product];
+
+
+                $comparisonList = CreditProp::find($compare);
+                foreach ($comparisonList as $item) {
+                    $item->logo = $item->credit->bank->logo;
+                }
+
+                $returnHTML = view('common.comparison_list')->with('products', $comparisonList)->render();
+                return response()->json(array('success' => true, 'html' => $returnHTML, 'action' => 'add'));
+            }
+        }
+
+        return response()->json(array('success' => false, 'html' => '', 'action' => 'add'));
 
     }
 }

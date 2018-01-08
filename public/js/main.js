@@ -6,6 +6,12 @@ $(document).ready(function () {
 
 function allInit() {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     function if_mobile() {
         if ($(window).width() < 760) return true;
     }
@@ -1001,23 +1007,25 @@ function dropComparison() {
     $.get('/' + compare_slug + '/compare/dropCompare');
 }
 function showCompareList() {
-    $.get('/' + compare_slug + '/compare/compareList',function (data) {
-        $('#compare_table').html(data);
+    compare_slug = 'credit';
+    $.get('/ajax/' + compare_slug + '/compare/compareList',function (data) {
+        $('#compare_table').html(data.html);
         $('#compare_table').ready(function () {
             $('#compare_list').show();
         });
     });
 }
-function comparationListToggle(id){
+function comparationListToggle(id, product){
 
-    $.post('/' + compare_slug + '/compare/toggleCompare/'+id, {}, function (data) {
+    $.post('/ajax/' + product + '/compare/toggleCompare/'+id, {}, function (data) {
+    // $.post('/' + compare_slug + '/compare/toggleCompare/'+id, {}, function (data) {
         // console.log('dd');
     	$('#compare_bar').show();
-    	if(data == 'add'){
+    	if(data.action == 'add'){
             $('#to_compare_'+id).addClass('active');
             comparison_count++;
         }
-        if(data == 'remove'){
+        if(data.action == 'remove'){
             $('#to_compare_'+id).removeClass('active');
             comparison_count--;
         }

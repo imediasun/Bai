@@ -13,6 +13,7 @@
 <html lang="{{app()->getLocale()}}">
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 {{--    <title>{{ $seoRecord->headerTitle }}</title>--}}
     {{--{#<meta name="description" content="{{ seoRecord.metaDescription }}">#}--}}
@@ -41,7 +42,10 @@
     @include('partials.header')
     <div style="display: none;" id="compare_bar" class="filter_info">
         <div class="container">
-            <div class="l"><span class="ic ic_scale_big"></span>Выбрано<div class="show_mob"></div> <span class="loans_count"></span> кредита</div>
+            <div class="l">
+                <span class="ic ic_scale_big"></span>Выбрано
+                <div class="show_mob"></div> <span class="loans_count"></span> кредита
+            </div>
             <!-- end .l-->
             <a id="compare_button" class="btn btn_round btn_round_small btn_border_green"><span >Сравнить</span></a>
             <div class="r" onclick="dropComparison()"> <span class="clear opt_link">Сбросить</span> </div>

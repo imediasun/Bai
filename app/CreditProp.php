@@ -21,8 +21,21 @@ class CreditProp extends Model
         'age',
         'income_project',
         'client_type',
+        'amount_comment',
+        'currency_comment',
+        'period_comment',
+        'percent_rate_comment',
+        'age_comment',
+        'income_confirmation_comment',
+        'credit_security_comment',
+        'repayment_structure_comment',
 
     ];
+
+    public function credit()
+    {
+        return $this->belongsTo('App\Credit');
+    }
 
     public function fees()
     {

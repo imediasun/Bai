@@ -14,7 +14,7 @@ class TestController extends Controller
 {
     public function fee_test()
     {
-        $this->handle();
+//        $this->handle();
     }
 
     public function handle()

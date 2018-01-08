@@ -177,6 +177,7 @@ class MigrateCredits extends Command
         $old_new_credit_props = [
             'Валюта' => [
                 'new_name' => 'currency',
+                'need_comment_field' => 'currency_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -185,6 +186,7 @@ class MigrateCredits extends Command
 
             'Зарплатный проект' => [
                 'new_name' => 'income_project',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -200,6 +202,7 @@ class MigrateCredits extends Command
 
             'Срок' => [
                 'new_name' => 'min_period|max_period',
+                'need_comment_field' => 'period_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -208,6 +211,7 @@ class MigrateCredits extends Command
 
             'Возраст' => [
                 'new_name' => 'age',
+                'need_comment_field' => 'age_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -232,6 +236,7 @@ class MigrateCredits extends Command
             ],
             'Период' => [
                 'new_name' => 'min_period|max_period',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -239,6 +244,7 @@ class MigrateCredits extends Command
             ],
             'Сумма' => [
                 'new_name' => 'min_amount|max_amount',
+                'need_comment_field' => 'amount_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -247,6 +253,7 @@ class MigrateCredits extends Command
 
             'Схема погашения' => [
                 'new_name' => 'repayment_structure',
+                'need_comment_field' => 'repayment_structure_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -258,6 +265,7 @@ class MigrateCredits extends Command
 
             'Обеспечение' => [
                 'new_name' => 'credit_security',
+                'need_comment_field' => 'credit_security_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -272,6 +280,7 @@ class MigrateCredits extends Command
 
             'Процентная ставка' => [
                 'new_name' => 'percent_rate|null',
+                'need_comment_field' => 'percent_rate_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => false,
@@ -280,6 +289,7 @@ class MigrateCredits extends Command
 
             'Подтверждение дохода' => [
                 'new_name' => 'income_confirmation',
+                'need_comment_field' => 'income_confirmation_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -330,6 +340,10 @@ class MigrateCredits extends Command
                     $credit_prop[$max_value] = $old_credit->value_to;
                 }
             }
+
+            if(!empty($arr_item['need_comment_field'])){
+                $credit_prop[$arr_item['need_comment_field']] = trim($old_credit->description);
+            }
         }
 
         return $credit_prop;
@@ -366,6 +380,7 @@ class MigrateCredits extends Command
         $old_new_credit = [
             'Минимальный официальный доход' => [
                 'new_name' => 'minimum_income',
+                'need_comment_field' => 'minimum_income_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -376,6 +391,7 @@ class MigrateCredits extends Command
 
             'Страхование' => [
                 'new_name' => 'insurance_input',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'description' => true,
                 'option_name' => false,
@@ -394,6 +410,7 @@ class MigrateCredits extends Command
 
             'ГЭСВ' => [
                 'new_name' => 'gesv',
+                'need_comment_field' => 'gesv_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -404,6 +421,7 @@ class MigrateCredits extends Command
 
             'Общий стаж работы' => [
                 'new_name' => 'occupational_life',
+                'need_comment_field' => 'occupational_life_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -414,6 +432,7 @@ class MigrateCredits extends Command
 
             'Стаж на текущем месте работы' => [
                 'new_name' => 'occupational_current',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -429,6 +448,7 @@ class MigrateCredits extends Command
             'Способ оплаты' => [
                 'new_name' => 'method_of_repayment_ru',
                 'new_name2' => 'method_of_repayment_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -443,6 +463,7 @@ class MigrateCredits extends Command
 
             'Постоянный доход' => [
                 'new_name' => 'have_constant_income',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -456,6 +477,7 @@ class MigrateCredits extends Command
 
             'Наличие мобильного номера' => [
                 'new_name' => 'have_mobile_phone',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -469,6 +491,7 @@ class MigrateCredits extends Command
 
             'Наличие рабочего номера' => [
                 'new_name' => 'have_work_phone',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -482,6 +505,7 @@ class MigrateCredits extends Command
 
             'Досрочное погашение' => [
                 'new_name' => 'have_early_repayment',
+                'need_comment_field' => 'have_early_repayment_comment',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -495,6 +519,7 @@ class MigrateCredits extends Command
 
             'Пролонгация' => [
                 'new_name' => 'have_prolongation',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -508,6 +533,7 @@ class MigrateCredits extends Command
 
             'Гражданство' => [
                 'new_name' => 'have_citizenship',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -532,6 +558,7 @@ class MigrateCredits extends Command
 
             'Цель кредита' => [
                 'new_name' => 'credit_goal',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -552,6 +579,7 @@ class MigrateCredits extends Command
 
             'Способ получение' => [
                 'new_name' => 'receive_mode',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -566,6 +594,7 @@ class MigrateCredits extends Command
 
             'Регистрация' => [
                 'new_name' => 'registration',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -579,6 +608,7 @@ class MigrateCredits extends Command
 
             'Срок рассмотрения' => [
                 'new_name' => 'time_for_consideration',
+                'need_comment_field' => 'time_for_consideration_comment',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -596,6 +626,7 @@ class MigrateCredits extends Command
 
             'Кредитная история' => [
                 'new_name' => 'credit_history',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -609,6 +640,7 @@ class MigrateCredits extends Command
 
             'Оформление кредита' => [
                 'new_name' => 'credit_formalization',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -624,6 +656,7 @@ class MigrateCredits extends Command
             'Документы' => [
                 'new_name' => 'docs_ru',
                 'new_name2' => 'docs_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -634,6 +667,7 @@ class MigrateCredits extends Command
             'Прочие требования' => [
                 'new_name' => 'other_claims_ru',
                 'new_name2' => 'other_claims_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -643,6 +677,7 @@ class MigrateCredits extends Command
 
             'Категории заемщиков' => [
                 'new_name' => 'debtor_category',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -733,6 +768,10 @@ class MigrateCredits extends Command
                 else{
                     $credit_arr[$arr_item['new_name']] = null;
                 }
+            }
+
+            if(!empty($arr_item['need_comment_field'])){
+                $credit_arr[$arr_item['need_comment_field']] = trim($old_credit->description);
             }
         }
 

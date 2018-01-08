@@ -31,6 +31,7 @@
             "app/Http/Helpers/SypexGeo/SxGeo.php",
             "app/Http/Helpers/SypexGeo/GeoHelper.php",
             "app/Http/Helpers/CalcHelper.php",
+            "app/Http/Helpers/CompareHelper.php",
             "app/Http/Helpers/CommonHelper.php",
             "app/Http/Helpers/SeoHelper.php"
         ],

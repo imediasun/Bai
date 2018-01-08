@@ -2883,6 +2883,19 @@ a[href^=tel] {
 	padding: 20px 30px 20px 50px;
 }
 
+.no_result_icon {
+	width: 104px;
+	height: 104px;
+	background: url(../images/sorry.png);
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.no_result_message {
+	text-align: center;
+	padding: 34px 50px;
+}
+
 .info_block .pic {
 	position: absolute;
 	top: 0;
