@@ -11,7 +11,7 @@
             </div>
             <!-- end .name-->
             <ul class="info">
-                <li class="credit_rate"><strong>{{ $credit->percent or $credit->props()->where('percent_rate', '!=', null)->min('percent_rate') }}%</strong> ставка по кредиту</li>
+                <li class="credit_rate"><strong>{{ empty($credit->percent) ? $credit->percent_rate : $credit->percent }}%</strong> ставка по кредиту</li>
                 <li class="payment_per_month"><strong>{{ $credit->ppm }}</strong> тенге в месяц</li>
                 <li class="overpay"><strong>-{{ $credit->overpay }}</strong> переплата</li>
             </ul>
@@ -20,7 +20,7 @@
         <!-- end .c-->
         <div class="r">
             {{--<a id="to_compare_{{ $credit->id }}" class="to_compare {% if credit.id in app.session.get('kredity') %}active{% endif %}" onclick="comparationListToggle({{ $credit->id }})">--}}
-            <a id="to_compare_{{ $credit->id }}" class="to_compare" onclick="comparationListToggle({{ $credit->props[0]->id }}, 'credit')">
+            <a id="to_compare_{{ $credit->id }}" class="to_compare" onclick="comparationListToggle({{ $credit->id }}, 'credit')">
                 <span class="ic ic_scale"></span>
                 <span class="ic ic_scale dark"></span>
                 <span class="ic ic_scale active"></span>

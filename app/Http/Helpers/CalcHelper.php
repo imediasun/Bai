@@ -19,8 +19,9 @@ class CalcHelper {
         }
 
         if ($percent == 0 || $percent == null){
+            $ppm = number_format($amount/$periods, 2, '.', ' ');
             return [
-                'ppm' => [$amount/$periods],
+                'ppm' => [$ppm],
                 'procentAmount' => 0,
                 'month' => $periods,
                 'dates' => $dates,
@@ -33,12 +34,15 @@ class CalcHelper {
             $ppm = $amount * $percentPerMonth / (1 - 1 / (1 + $percentPerMonth) ** $periods);
             $ppm_arr = [];
             for ($i = 1; $i <= $periods; $i++) {
-                $ppm_arr[] = round($ppm, 2);
+                $number = round($ppm, 2);
+                $ppm_arr[] = number_format($number, 2, '.', ' ');
             }
             $procentAmount = $ppm * $periods - $amount;
+            $procentAmount = round($procentAmount, 2);
+            $procentAmount = number_format($procentAmount, 2, '.', ' ');
             return [
                 'ppm' => $ppm_arr,
-                'procentAmount' => round($procentAmount, 2),
+                'procentAmount' => $procentAmount,
                 'month' => $periods,
                 'dates' => $dates,
             ];

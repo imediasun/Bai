@@ -1,7 +1,7 @@
-{{--{% if reviews is not defined %}--}}
+{{--@if reviews is not defined %}--}}
     {{--{% set reviews = app_tools.getReviews() %}--}}
 {{--{% endif %}--}}
-{{--{% if reviews is not empty %}--}}
+@if (isset($reviews))
     <div class="h2">Отзывы о банках</div>
     <div class="hold">
         @foreach(\App\Review::getReviews()->get() as $review)
@@ -37,4 +37,4 @@
         <a href="#" class="btn btn_sq btn_sq_small btn_green"><span>Оставить отзыв</span></a>
     </div>
 
-{{--{% endif %}--}}
+@endif

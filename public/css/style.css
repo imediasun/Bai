@@ -2034,9 +2034,9 @@ a[href^=tel] {
 	padding: 0;
 }
 
-.form_money {
-	margin-bottom: 50px;
-}
+/*.form_money {*/
+	/*margin-bottom: 50px;*/
+/*}*/
 
 .form_course {
 	margin-bottom: 0;

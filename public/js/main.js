@@ -1015,21 +1015,31 @@ function showCompareList() {
         });
     });
 }
-function comparationListToggle(id, product){
+function comparationListToggle(id, product ){
 
-    $.post('/ajax/' + product + '/compare/toggleCompare/'+id, {}, function (data) {
-    // $.post('/' + compare_slug + '/compare/toggleCompare/'+id, {}, function (data) {
-        // console.log('dd');
-    	$('#compare_bar').show();
-    	if(data.action == 'add'){
-            $('#to_compare_'+id).addClass('active');
-            comparison_count++;
-        }
-        if(data.action == 'remove'){
-            $('#to_compare_'+id).removeClass('active');
-            comparison_count--;
-        }
-        $('.loans_count').text(comparison_count);
+    var insert_data = $('#amount_input').val().split(" ").join('');
+
+    var amount = insert_data;
+    console.dir(amount);
+    var period  = $('#credit_period').val();
+    var currency = $('.currency:checked').val();
+    $.post('/ajax/compare/toggleCompare', {
+        product: product,
+        id: id,
+        amount: amount,
+        period:period,
+        currency:currency
+    }, function (data) {
+            $('#compare_bar').show();
+            if(data.action == 'add'){
+                $('#to_compare_'+id).addClass('active');
+                comparison_count++;
+            }
+            if(data.action == 'remove'){
+                $('#to_compare_'+id).removeClass('active');
+                comparison_count--;
+            }
+            $('.loans_count').text(comparison_count);
     });
 }
 

@@ -18,16 +18,32 @@ class CreditController extends Controller
         $all = $request->all();
         if(empty($request->all())){
             foreach ($credits as $credit) {
-                $rate = $credit->props()->where('percent_rate', '!=', null)->min('percent_rate');
+                $props = $credit->props()->where('percent_rate', '!=', null)
+//                    ->where('currency', 'kzt')
+                ;
+
+                $rate = $props->min('percent_rate');
 
                 $options['initial_fee'] = $all['initial_fee']??0;
                 $options['rate'] = $all['rate']?? $rate;
-                $options['tot'] = $all['calc[tot]']??300000;
+                $options['tot'] = $all['calc[tot]']??200000;
                 $options['period'] = $all['calc[period]']??12;
 
                 $result = \CalcHelper::calculate_credit(12, $options['tot'], $options['rate'], 1, $options['initial_fee']);
                 $credit->ppm = $result['ppm'][0];
                 $credit->overpay = $result['procentAmount'];
+
+                $props = $props->first();
+                if($props){
+                    $credit->min_amount = $props->min_amount;
+                    $credit->max_amount = $props->max_amount;
+
+                    $credit->min_period = $props->min_period;
+                    $credit->max_period = $props->max_period;
+
+                    $credit->percent_rate = $props->percent_rate;
+                    $credit->credit_security = Credit::transform_security($props->credit_security);
+                }
             }
         }
         else{
@@ -85,23 +101,27 @@ class CreditController extends Controller
                     ->where('product_type', 'credit')
                     ->first();
                 if($fastFilter){
-                    $fastFilterProps = $fastFilter->fastFilterProps;
-                    foreach ($fastFilterProps as $item) {
-                        $where[] =
-                            [
-                                $item['product_field'],
-                                $item['sign'],
-                                $item['value']
-                            ];
+                    $fastFilterProps = $fastFilter->props;
+                    if($fastFilterProps){
+                        foreach ($fastFilterProps as $item) {
+                            $where[] =
+                                [
+                                    $item['product_field'],
+                                    $item['sign'],
+                                    $item['value']
+                                ];
+                        }
+
+                        $credits = Credit::join('credit_props', 'credits.id', '=', 'credit_props.credit_id')
+                                        ->where($where)->get();
+
+                        $result = [
+                            'credits' => $credits,
+                        ];
+
+                        return view('credit.index', $result);
                     }
 
-                    $credits = Credit::where($where)->get();
-
-                    $result = [
-                        'credits' => $credits,
-                    ];
-
-                    return view('credit.index', $result);
                 }
 
 

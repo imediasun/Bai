@@ -106,10 +106,14 @@ class CommonHelper
         }
     }
 
-    public static function getFastFilters($productName = 'CREDIT')
+    public static function getFastFilters($productName = 'credit')
     {
         $fastFilters = \App\FastFilter::where('product_type', $productName)->
-                                        where('is_approved', true)->orderBy('sort_order');
+                                        where('is_approved', true)->orderBy('sort_order')->get();
+
+//        foreach ($fastFilters as $ff){
+//            $ff->url =
+//        }
 
 //        $fastFilters = $this->em->getRepository('AppBundle:FastFilter')->findBy([
 //            'product' => $this->em->getRepository('AppBundle:Product')->findOneByName($productName),

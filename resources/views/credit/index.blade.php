@@ -9,7 +9,7 @@
                         <form class="filter_form" name="filter_form" id="filter_form" method="post">
                             <div class="form_row form_money">
                                 <div class="form_el">
-                                    <div class="label">Стоимость кредита</div>
+                                    <div class="label">Сумма кредита</div>
                                     <div class="input input_big">
                                         <input name="calc[tot]" id="amount_input" type="text" value="200 000" class="prop_filter">
                                     </div>
@@ -236,6 +236,7 @@
                                         },
                                         success: function (response) {
                                             $('#offers_list').html(response.html);
+
                                             console.dir(response);
                                             initCredit();
                                         }

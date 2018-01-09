@@ -310,10 +310,14 @@ class AjaxController extends Controller
 
     }
 
-    public function compare(Request $request, $product, $id)
+    public function compare(Request $request)
     {
+        $id = $request->id;
+        $product = $request->product;
+        $amount = $request->amount;
+        $period = $request->period;
+        $currency = $request->currency;
 
-//        $exists = session()->has('compare.'.$product);
         $exists = isset($_SESSION['compare'][$product]);
 
         if(!$exists){
@@ -321,65 +325,67 @@ class AjaxController extends Controller
                 $product => [$id],
             ];
 
-//            session('compare', $compare);
             $_SESSION['compare'] = $compare;
         }
         else{
-//            $compare = session('compare');
             $compare = $_SESSION['compare'];
             $compare['credit'][] = $id;
             $_SESSION['compare'] = $compare;
-
-//            session('compare', $compare);
         }
 
         $comparisonList = null;
         if ($product == 'credit'){
-            $comparisonList = CreditProp::find($compare['credit']);
-            foreach ($comparisonList as $item) {
-                $item->logo = $item->credit->bank->logo;
-                $item->granting = $item->fees()->whereNotNull('granting_input')->first();
-                if($item->granting){
-                    $item->granting = $item->granting->granting_input;
+            $comparisonList = Credit::find($compare['credit']);
+
+            foreach ($comparisonList as $key => $item) {
+                $item->logo = $item->bank->logo;
+                $item->amount = $amount;
+                $item->credit_goal = Credit::transform_credit_goal($item->credit_goal);
+
+                $item->prop = $item->props()
+                    ->where('percent_rate', '!=', null)
+                    ->where('currency', '=', $currency)
+                    ->first()
+                ;
+
+                if($item->prop != null){
+                    $result = \CalcHelper::calculate_credit($period, $amount, $item->prop->percent_rate, 1);
+                    $item->ppm = $result['ppm'][0];
+                    $item->currency = Credit::transform_currency($item->prop->currency);
+                    $item->credit_history = Credit::transform_credit_history($item->credit_history);
+                    $item->credit_formalization = Credit::transform_credit_formalization($item->credit_formalization);
+                    $item->credit_security = Credit::transform_security($item->credit_security);
+                    $item->percent_rate = $item->prop->percent_rate;
+                    $item->overpay = $result['procentAmount'];
+                    $item->age = $item->prop->age;
                 }
-//                $fees[$item->id]['granting'] = $item->fees()->whereNotNull('granting_input')->first();
+                $comparisonList[$key]->prop = $item->prop;
+                $comparisonList[$key]->ppm = $item->ppm;
+                $comparisonList[$key]->overpay = $item->overpay;
+//                $item->granting = $item->fees()->whereNotNull('granting_input')->first();
+//                if($item->granting){
+//                    $item->granting = $item->granting->granting_input;
+//                }
             }
         }
 
-
-        $returnHTML = '';
-//        foreach ($props as $item) {
-            $returnHTML = view('common.comparison_list')->with('products', $comparisonList)->render();
-//        }
-
-//        $compare = $this->get(CompareManager::class);
-//        $compare->init(Credit::class, 'kredity', ':templates:kredity_list.html.twig',$props);
+        $returnHTML = view('common.comparison_list')->with('products', $comparisonList)->render();
+        $_SESSION['credit_compare'] = $returnHTML;
 
         return response()->json(array('success' => true, 'html' => $returnHTML, 'action' => 'add'));
 
-//        return $compare->$act($id);
     }
 
     public function compareList($product)
     {
-//        $exists = session()->has('compare.'.$product);
         $exists = isset($_SESSION['compare'][$product]);
 
         if($exists){
-            if ($product == 'credit'){
-
-//                $compare = session('compare.'.$product);
-                $compare = $_SESSION['compare'][$product];
-
-
-                $comparisonList = CreditProp::find($compare);
-                foreach ($comparisonList as $item) {
-                    $item->logo = $item->credit->bank->logo;
-                }
-
-                $returnHTML = view('common.comparison_list')->with('products', $comparisonList)->render();
-                return response()->json(array('success' => true, 'html' => $returnHTML, 'action' => 'add'));
+            if(isset($_SESSION[$product.'_compare'])){
+                $html = $_SESSION[$product.'_compare'];
+                return response()->json(array('success' => true, 'html' => $html, 'action' => 'add'));
             }
+
         }
 
         return response()->json(array('success' => false, 'html' => '', 'action' => 'add'));

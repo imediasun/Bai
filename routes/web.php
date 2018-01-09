@@ -29,7 +29,8 @@ Route::group(['prefix' => 'kredity'], function () {
 
 Route::group(['prefix' => 'ajax'], function (){
     Route::get('credit-calc', 'AjaxController@credit_calc')->name('ajax.credit_calc');
-    Route::post('{product}/compare/toggleCompare/{id}', 'AjaxController@compare')->name('ajax.compare.add');
+//    Route::post('{product}/compare/toggleCompare/{id}', 'AjaxController@compare')->name('ajax.compare.add');
+    Route::post('compare/toggleCompare/', 'AjaxController@compare')->name('ajax.compare.add');
     Route::get('{product}/compare/compareList', 'AjaxController@compareList')->name('ajax.compare.list');
 });
 

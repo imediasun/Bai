@@ -77,6 +77,94 @@ class Credit extends Model
         return $this->hasMany('App\CustomProp');
     }
 
+    public static function transform_credit_goal($item)
+    {
+        $arr = [
+            'none' => 'не важно',
+            'any' => 'любая',
+            'emergency_needs' => 'неотложные нужды',
+            'just_money' => 'просто деньги',
+            'goods' => 'товары',
+            'business' => 'бизнес',
+            'refinancing' => 'рефинансирование',
+            'medication' => 'лечение',
+            'education' => 'образование',
+            'traveling' => 'путешествие',
+        ];
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
+    public static function transform_credit_history($item)
+    {
+        $arr = [
+            'none' => 'не важно',
+            'positive' => 'положительная кредитная история',
+            'negative' => 'отрицательная кредитная история',
+        ];
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
+    public static function transform_credit_formalization($item)
+    {
+        $arr = [
+            'none' => 'не важно',
+            'online' => 'онлайн заявка',
+            'office' => 'в отделении банка',
+            'both' => 'в отделений банка и онлайн заявка',
+        ];
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
+    public static function transform_security($item)
+    {
+        $arr = [
+            '' => 'без залога и поручительства',
+            'none' => 'без залога и поручительства',
+            'without-security' => 'без залога и поручительства',
+            'guarantor' => 'поручитель',
+            'deposit' => 'залог - депозит',
+            'immovables_current' => 'залог - имеющееся недвижимость',
+            'immovables_bying' => 'залог - приобретемая недвижимость',
+            'auto_current' => 'залог - имеющееся авто',
+            'auto_buying' => 'залог - приобретаемое авто',
+            'money' => 'залог - денежные средства',
+        ];
+
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
+    public static function transform_currency($item)
+    {
+        $arr = [
+            'kzt' => '₸',
+            'usd' => '$',
+            'eur' => '€',
+            '' => '₸',
+        ];
+
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
 //    public function scopeppm($query, $id)
 //    {
 //        return $query->where('');
