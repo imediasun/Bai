@@ -60,6 +60,20 @@
                                 <div class="in" style="height: auto;">
                                     <div class="main_indent">
                                         <div class="form_row form_row_autowidth">
+                                            <div class="form_el form_checks form_checks_inline">
+                                                <ul>
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="calc[without_fees]" class="outtaHere prop_filter">
+                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Без комиссий</span></label>
+                                                    </li>
+                                                    <li hidden>
+                                                        <label>
+                                                            <input type="checkbox" name="calc[online_request]" class="outtaHere prop_filter">
+                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Онлайн-заявка</span></label>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                             <div class="form_el">
                                                 <div class="label" >Срок рассмотрения</div>
                                                 <div class="input">
@@ -112,7 +126,6 @@
                                                 <div class="label">Регистрация</div>
                                                 <div class="input input_big">
                                                     <select name="calc[registration]" id="registration" class="curselect prop_filter">
-                                                        <option value="none">Не важно</option>
                                                         <option @if(Request::has('registration') && Request::input('registration') == 'none'){{ 'selected' }}@endif value="none">не важно</option>
                                                         <option @if(Request::has('registration') && Request::input('registration') == 'const'){{ 'selected' }}@endif value="const">постоянная</option>
                                                         <option @if(Request::has('registration') && Request::input('registration') == 'const_in_area'){{ 'selected' }}@endif value="const_in_area">постоянная в районе обращения</option>
@@ -124,7 +137,6 @@
                                                 <div class="label">Цель кредита</div>
                                                 <div class="input input_big">
                                                     <select name="calc[credit_goal]" id="credit_goal" class="curselect prop_filter">
-                                                        <option value="none">Не важно</option>
                                                         <option @if(Request::has('credit_goal') && Request::input('credit_goal') == 'none'){{ 'selected' }}@endif value="none">не важно</option>
                                                         <option @if(Request::has('credit_goal') && Request::input('credit_goal') == 'any'){{ 'selected' }}@endif value="any">любая</option>
                                                         <option @if(Request::has('credit_goal') && Request::input('credit_goal') == 'emergency_needs'){{ 'selected' }}@endif value="emergency_needs">неотложные нужды</option>

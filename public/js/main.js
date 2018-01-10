@@ -677,6 +677,7 @@ function initCredit() {
 			easing: 'linear'
 		};
 		// var link = hold.find('.toggle_open');
+		var link = hold.find('.c');
 		var link_credit = $(hold);
 		var details = hold.find('.in');
 
@@ -703,10 +704,16 @@ function initCredit() {
 
             }
 
-            hold.toggleClass('open');
-            details.slideToggle(options);
+            // hold.toggleClass('open');
+            // details.slideToggle(options);
 
         });
+
+        link.click(function () {
+            hold.toggleClass('open');
+            details.slideToggle(options);
+        });
+
 
 	});
 }
@@ -750,7 +757,7 @@ function initFormMoreHidden() {
 		text.css({
 			"height": "auto"
 		});
-		text.hide();
+		// text.hide();
 
 		link.click(function () {
 			hold.toggleClass('open');

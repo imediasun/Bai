@@ -13,12 +13,13 @@ class CreditController extends Controller
 {
     public function index(Request $request)
     {
+//        $f = Credit::getCredits();
         unset($_SESSION['compare']);
         $credits = Credit::all();
         $all = $request->all();
         if(empty($request->all())){
-            foreach ($credits as $credit) {
-                $props = $credit->props()->where('percent_rate', '!=', null)
+            /*foreach ($credits as $credit) {
+                $props = $credit->props()->whereNotNull('percent_rate')
 //                    ->where('currency', 'kzt')
                 ;
 
@@ -44,7 +45,9 @@ class CreditController extends Controller
                     $credit->percent_rate = $props->percent_rate;
                     $credit->credit_security = Credit::transform_security($props->credit_security);
                 }
-            }
+            }*/
+
+            $credits = Credit::getCredits();
         }
         else{
 

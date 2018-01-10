@@ -198,7 +198,7 @@ class AjaxController extends Controller
         $all_parsed_without_none = [];
         $all_parsed['calc']['tot'] = str_replace(' ', '', $all_parsed['calc']['tot']);
         foreach ($all_parsed['calc'] as $key => $item) {
-            if($item != 'none' && $key != 'tot' && $key != 'period'){
+            if($item != 'none' && $key != 'tot' && $key != 'period' && $key != 'without_fees' && $key != 'online_request'){
                 if($key == 'curr'){
                     $all_parsed_without_none['currency'] = $item;
                 }
@@ -208,15 +208,25 @@ class AjaxController extends Controller
             }
         }
 
-        $cr = Credit::leftJoin('credit_props', 'credits.id', '=', 'credit_props.credit_id')
-                        ->where('percent_rate', '!=', null)
-                        /*->
-                        where('credit_props.min_amount', '>=', $all_parsed['calc']['tot'])->
-                        where('credit_props.max_amount', '<=', $all_parsed['calc']['tot'])->
-                        where('credit_props.min_period', '=>', $all_parsed['calc']['period'])->
-                        where('credit_props.max_period', '<=', $all_parsed['calc']['period'])*/
+        if(isset($all_parsed['calc']['without_fees']) && $all_parsed['calc']['without_fees']){
+            $cr = Credit::doesntHave('fees')->leftJoin('credit_props', 'credits.id', '=', 'credit_props.credit_id')
+                ->where('percent_rate', '!=', null);
+        }
+        else{
+//            $cr = Credit::leftJoin('credit_props', 'credits.id', '=', 'credit_props.credit_id')
+//                ->where('percent_rate', '!=', null)
 
-        ;
+            $cr = Credit::leftJoin('credit_props', 'credits.id', '=', 'credit_props.credit_id')
+                ->where('percent_rate', '!=', null);
+                /*->
+                where('credit_props.min_amount', '>=', $all_parsed['calc']['tot'])->
+                where('credit_props.max_amount', '<=', $all_parsed['calc']['tot'])->
+                where('credit_props.min_period', '=>', $all_parsed['calc']['period'])->
+                where('credit_props.max_period', '<=', $all_parsed['calc']['period'])*/
+
+            ;
+        }
+
         foreach ($all_parsed_without_none as $key => $item) {
             $cr = $cr->where($key, $item);
         }
@@ -253,6 +263,49 @@ class AjaxController extends Controller
                 $item->currency = $currency[$item->currency];
             }
 
+            if(!empty($item->min_amount) && !empty($item->max_amount)){
+                $min = \CommonHelper::format_number($item->min_amount, false);
+                $max = \CommonHelper::format_number($item->max_amount, false);
+                $item->amount = "от $min до $max";
+            }
+            elseif (!empty($item->min_amount)){
+                $min = \CommonHelper::format_number($item->min_amount, false);
+                $item->amount = "от $min";
+            }
+            elseif (!empty($item->max_amount)){
+                $max = \CommonHelper::format_number($item->max_amount, false);
+                $item->amount = "до $max";
+            }
+            else{
+                $item->amount = "2 000 000";
+            }
+
+            if(!empty($item->min_period) && !empty($item->max_period)){
+                $min = $item->min_period;
+                $max = $item->max_period;
+                $item->period = "от $min до $max";
+            }
+            elseif (!empty($item->min_period)){
+                $min = $item->min_period;
+                $item->period = "от $min";
+            }
+            elseif (!empty($item->max_period)){
+                $max = $item->max_period;
+                $item->period = "до $max";
+            }
+            else{
+                $item->period = "";
+            }
+
+            if(isset($item->minimum_income) && $item->minimum_income != null){
+                $item->minimum_income = \CommonHelper::format_number($item->minimum_income, false) ?? null;
+            }
+
+
+//            $item->credit_security = Credit::transform_security($item->credit_security);
+            $item->currency = Credit::transform_currency($item->currency) ?? '₸';
+            $item->income_confirmation = Credit::transform_income_confirmation($item->income_confirmation);
+
             $fees = CreditPropFee::where('credit_prop_id', $item['credit_props']['id'])->first();
 
             $fee_arr = [];
@@ -275,6 +328,7 @@ class AjaxController extends Controller
             $item->ppm = $result['ppm'][0];
             $item->overpay = $result['procentAmount'];
             $item->percent = $options['rate'];
+            $item->id = $item->credit_id;
         }
 
 //        $filtered_credits = Credit::where('credit_goal', $all_parsed['calc']['credit_goal'])->
@@ -339,19 +393,19 @@ class AjaxController extends Controller
 
             foreach ($comparisonList as $key => $item) {
                 $item->logo = $item->bank->logo;
-                $item->amount = $amount;
+                $item->amount = \CommonHelper::format_number($amount, false);
                 $item->credit_goal = Credit::transform_credit_goal($item->credit_goal);
 
                 $item->prop = $item->props()
                     ->where('percent_rate', '!=', null)
-                    ->where('currency', '=', $currency)
+//                    ->where('currency', '=', $currency)
                     ->first()
                 ;
 
                 if($item->prop != null){
                     $result = \CalcHelper::calculate_credit($period, $amount, $item->prop->percent_rate, 1);
                     $item->ppm = $result['ppm'][0];
-                    $item->currency = Credit::transform_currency($item->prop->currency);
+                    $item->currency = Credit::transform_currency($currency);
                     $item->credit_history = Credit::transform_credit_history($item->credit_history);
                     $item->credit_formalization = Credit::transform_credit_formalization($item->credit_formalization);
                     $item->credit_security = Credit::transform_security($item->credit_security);
@@ -362,6 +416,9 @@ class AjaxController extends Controller
                 $comparisonList[$key]->prop = $item->prop;
                 $comparisonList[$key]->ppm = $item->ppm;
                 $comparisonList[$key]->overpay = $item->overpay;
+                $comparisonList[$key]->income_conformation = Credit::transform_income_confirmation($item->income_conformation);
+                $comparisonList[$key]->credit_history = Credit::transform_credit_history($item->credit_history);
+
 //                $item->granting = $item->fees()->whereNotNull('granting_input')->first();
 //                if($item->granting){
 //                    $item->granting = $item->granting->granting_input;

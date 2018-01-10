@@ -22,6 +22,7 @@ class ComposerStaticInit376bd9cba86c129aa3d3c52fe66b6be5
         'd1c4ede1af6c35cb450136a67f05181b' => __DIR__ . '/../..' . '/app/Http/Helpers/SypexGeo/SxGeo.php',
         '41f684efab341712100e190fe739d125' => __DIR__ . '/../..' . '/app/Http/Helpers/SypexGeo/GeoHelper.php',
         '832f72aaa567273778d78747fb5c8606' => __DIR__ . '/../..' . '/app/Http/Helpers/CalcHelper.php',
+        '8f85d6c26c1034cd24e174d825e911a3' => __DIR__ . '/../..' . '/app/Http/Helpers/CompareHelper.php',
         '75ad3037e43d0192fb64c6cf0382a2e7' => __DIR__ . '/../..' . '/app/Http/Helpers/CommonHelper.php',
         '54ddad554b04541be7af6a337d061bc8' => __DIR__ . '/../..' . '/app/Http/Helpers/SeoHelper.php',
     );
@@ -457,6 +458,7 @@ class ComposerStaticInit376bd9cba86c129aa3d3c52fe66b6be5
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Comment' => __DIR__ . '/../..' . '/app/Comment.php',
         'App\\Console\\Commands\\MigrateCredits' => __DIR__ . '/../..' . '/app/Console/Commands/MigrateCredits.php',
+        'App\\Console\\Commands\\MigrateFastFilters' => __DIR__ . '/../..' . '/app/Console/Commands/MigrateFastFilters.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Country' => __DIR__ . '/../..' . '/app/Country.php',
         'App\\Credit' => __DIR__ . '/../..' . '/app/Credit.php',

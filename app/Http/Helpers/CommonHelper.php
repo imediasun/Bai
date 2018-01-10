@@ -123,4 +123,14 @@ class CommonHelper
         return $fastFilters;
 
     }
+
+    public static function format_number($number, $decimal = true)
+    {
+        if($decimal){
+            return number_format($number, 2, '.', ' ');
+        }
+        else{
+            return number_format($number, 0, '.', ' ');
+        }
+    }
 }

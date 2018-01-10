@@ -294,8 +294,8 @@ class MigrateCredits extends Command
                 'value_from' => false,
                 'value_to' => false,
                 'transform' => [
-                    'без подтверждения доходов' => false,
-                    'с подтверждением доходов' => true,
+                    0 => false,
+                    1 => true,
                 ],
             ],
         ];
@@ -321,7 +321,9 @@ class MigrateCredits extends Command
                 else{
                     // преобразование не требуется, сохраняем как есть
                     // свойство: currency => USD
-                    $credit_prop[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+//                    if($old_credit->option_name != null){
+                        $credit_prop[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+//                    }
                 }
             }
             // value_from / value_to
@@ -732,10 +734,13 @@ class MigrateCredits extends Command
                 else{
                     // преобразование не требуется, сохраняем как есть
                     // свойство: currency => usd
-                    $credit_arr[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
-                    if($arr_item['new_name2'] != null){
-                        $credit_arr[$arr_item['new_name2']] = mb_strtolower($old_credit->option_name);
+                    if(!isset($credit_arr[$arr_item['new_name']])){
+                        $credit_arr[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+                        if($arr_item['new_name2'] != null){
+                            $credit_arr[$arr_item['new_name2']] = mb_strtolower($old_credit->option_name);
+                        }
                     }
+
                 }
             }
             elseif ($arr_item['description'] != false){
@@ -942,7 +947,7 @@ class MigrateCredits extends Command
     {
         $creditProps = CreditProp::all();
         foreach ($creditProps as $creditProp) {
-            if($creditProp->income_confirmation == null){
+            if($creditProp->income_confirmation === null){
                 $creditProp->income_confirmation = true;
                 $creditProp->save();
             }

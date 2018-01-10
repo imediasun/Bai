@@ -20,6 +20,7 @@ return array(
     'App\\City' => $baseDir . '/app/City.php',
     'App\\Comment' => $baseDir . '/app/Comment.php',
     'App\\Console\\Commands\\MigrateCredits' => $baseDir . '/app/Console/Commands/MigrateCredits.php',
+    'App\\Console\\Commands\\MigrateFastFilters' => $baseDir . '/app/Console/Commands/MigrateFastFilters.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Country' => $baseDir . '/app/Country.php',
     'App\\Credit' => $baseDir . '/app/Credit.php',

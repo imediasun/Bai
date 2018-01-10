@@ -11,7 +11,7 @@
             <div style="width: {{ $ratePercent }}%;"></div>
         </div>
         <!-- end .stars-->
-        <span>{{ $rate }}% </span>
+        <span>{{ $rate }}0 </span>
         <div class="rating_popup">
             <div class="rating_popup_row rating_popup_row_head">
                 <div class="el">

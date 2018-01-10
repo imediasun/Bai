@@ -14,17 +14,18 @@ class TestController extends Controller
 {
     public function fee_test()
     {
-//        $this->handle();
+        $this->handle();
     }
 
     public function handle()
     {
         Credit::truncate();
         CreditProp::truncate();
-        CreditPropFee ::truncate();
+        CreditPropFee::truncate();
         $this->migrate();
-        $this->fill_credit_props_parent();
-        $this->fill_income_confirmation();
+//        $this->fill_credit_props_parent();
+//        $this->fill_income_confirmation();
+        $this->fill_insurance();
     }
 
     private function migrate()
@@ -90,7 +91,8 @@ class TestController extends Controller
                         if($credit_new){
 
                             $credit_prop = $this->fill_props($old_credit, $credit_prop);
-                            $credit_fees = $this->fill_fees($old_credit, $credit_fees);
+//                            $credit_fees = $this->fill_fees($old_credit, $credit_fees);
+                            $credit_fees = $this->fill_fees2($old_credit, $credit_fees);
 
                         }
                     }
@@ -98,7 +100,8 @@ class TestController extends Controller
                 //если это материнский кредит, забираем его props и credit
                 else{
                     $credit_prop = $this->fill_props($old_credit, $credit_prop);
-                    $credit_fees = $this->fill_fees($old_credit, $credit_fees);
+//                    $credit_fees = $this->fill_fees($old_credit, $credit_fees);
+                    $credit_fees = $this->fill_fees2($old_credit, $credit_fees);
                     $credit_arr = $this->fill_credit($old_credit, $credit_arr);
                 }
             }
@@ -113,12 +116,13 @@ class TestController extends Controller
                 //сохраняем prop
                 $credit_prop = CreditProp::create($credit_prop);
 
-                if(!empty($credit_fees) && isset($credit_fees['input'])){
+                if(!empty($credit_fees)){
                     $credit_fees['credit_id'] = $credit->id;
                     $credit_fees['credit_prop_id'] = $credit_prop->id;
                     $credit_fees['created_by'] = 1;
                     $credit_fees['changed_by'] = 1;
                     //сохраняем fees
+//                    $credit_prop_fee = CreditPropFee::create($credit_fees);
                     $credit_prop_fee = CreditPropFee::create($credit_fees);
                 }
             }
@@ -128,12 +132,13 @@ class TestController extends Controller
                     //сохраняем prop
                     $credit_prop = CreditProp::create($credit_prop);
 
-                    if(!empty($credit_fees) && isset($credit_fees['input'])){
+                    if(!empty($credit_fees)){
                         $credit_fees['credit_id'] = $credit_new->id;
                         $credit_fees['credit_prop_id'] = $credit_prop->id;
                         $credit_fees['created_by'] = 1;
                         $credit_fees['changed_by'] = 1;
                         //сохраняем fees
+//                        $credit_prop_fee = CreditPropFee::create($credit_fees);
                         $credit_prop_fee = CreditPropFee::create($credit_fees);
                     }
                 }
@@ -149,6 +154,7 @@ class TestController extends Controller
         $old_new_credit_props = [
             'Валюта' => [
                 'new_name' => 'currency',
+                'need_comment_field' => 'currency_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -157,6 +163,7 @@ class TestController extends Controller
 
             'Зарплатный проект' => [
                 'new_name' => 'income_project',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -172,6 +179,7 @@ class TestController extends Controller
 
             'Срок' => [
                 'new_name' => 'min_period|max_period',
+                'need_comment_field' => 'period_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -180,6 +188,7 @@ class TestController extends Controller
 
             'Возраст' => [
                 'new_name' => 'age',
+                'need_comment_field' => 'age_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -204,6 +213,7 @@ class TestController extends Controller
             ],
             'Период' => [
                 'new_name' => 'min_period|max_period',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -211,6 +221,7 @@ class TestController extends Controller
             ],
             'Сумма' => [
                 'new_name' => 'min_amount|max_amount',
+                'need_comment_field' => 'amount_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => true,
@@ -219,6 +230,7 @@ class TestController extends Controller
 
             'Схема погашения' => [
                 'new_name' => 'repayment_structure',
+                'need_comment_field' => 'repayment_structure_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -230,6 +242,7 @@ class TestController extends Controller
 
             'Обеспечение' => [
                 'new_name' => 'credit_security',
+                'need_comment_field' => 'credit_security_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
@@ -244,6 +257,7 @@ class TestController extends Controller
 
             'Процентная ставка' => [
                 'new_name' => 'percent_rate|null',
+                'need_comment_field' => 'percent_rate_comment',
                 'option_name' => false,
                 'value_from' => true,
                 'value_to' => false,
@@ -252,12 +266,13 @@ class TestController extends Controller
 
             'Подтверждение дохода' => [
                 'new_name' => 'income_confirmation',
+                'need_comment_field' => 'income_confirmation_comment',
                 'option_name' => true,
                 'value_from' => false,
                 'value_to' => false,
                 'transform' => [
-                    'без подтверждения доходов' => false,
-                    'с подтверждением доходов' => true,
+                    0 => false,
+                    1 => true,
                 ],
             ],
         ];
@@ -277,13 +292,16 @@ class TestController extends Controller
                     //если в массиве transform есть такой ключ: "C подтверждением доходов"
                     if(isset($arr_item['transform'][mb_strtolower($old_credit->option_name)])){
 
-                        $credit_prop[$arr_item['new_name']] = $arr_item['transform'][mb_strtolower($old_credit->option_name)];
+                        if(!isset($credit_prop[$arr_item['new_name']]))
+                        $credit_prop[$arr_item['new_name']] = $arr_item['transform'][trim(mb_strtolower($old_credit->option_name))];
                     }
                 }
                 else{
                     // преобразование не требуется, сохраняем как есть
                     // свойство: currency => USD
-                    $credit_prop[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+                    if($old_credit->option_name != null){
+                        $credit_prop[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+                    }
                 }
             }
             // value_from / value_to
@@ -301,6 +319,10 @@ class TestController extends Controller
                 if($max_value != 'null'){
                     $credit_prop[$max_value] = $old_credit->value_to;
                 }
+            }
+
+            if(!empty($arr_item['need_comment_field'])){
+                $credit_prop[$arr_item['need_comment_field']] = trim($old_credit->description);
             }
         }
 
@@ -338,6 +360,7 @@ class TestController extends Controller
         $old_new_credit = [
             'Минимальный официальный доход' => [
                 'new_name' => 'minimum_income',
+                'need_comment_field' => 'minimum_income_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -346,8 +369,28 @@ class TestController extends Controller
                 'transform' => []
             ],
 
+            'Страхование' => [
+                'new_name' => 'insurance_input',
+                'need_comment_field' => '',
+                'new_name2' => null,
+                'description' => true,
+                'option_name' => false,
+                'value_from' => false,
+                'value_to' => false,
+                'transform' => [],
+//                'transform' => [
+//                    'Не требуется' => null,
+//                    'разово в %' => 'one_time_percent',
+//                    'разово в тенге' => 'one_time_amount',
+//                    'не менее' => 'not_less_then_amount',
+//                    'не обязательно' => null,
+//                    'Не важно' => null,
+//                ],
+            ],
+
             'ГЭСВ' => [
                 'new_name' => 'gesv',
+                'need_comment_field' => 'gesv_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -358,6 +401,7 @@ class TestController extends Controller
 
             'Общий стаж работы' => [
                 'new_name' => 'occupational_life',
+                'need_comment_field' => 'occupational_life_comment',
                 'new_name2' => null,
                 'option_name' => false,
                 'description' => false,
@@ -368,6 +412,7 @@ class TestController extends Controller
 
             'Стаж на текущем месте работы' => [
                 'new_name' => 'occupational_current',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -383,6 +428,7 @@ class TestController extends Controller
             'Способ оплаты' => [
                 'new_name' => 'method_of_repayment_ru',
                 'new_name2' => 'method_of_repayment_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -397,6 +443,7 @@ class TestController extends Controller
 
             'Постоянный доход' => [
                 'new_name' => 'have_constant_income',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -410,6 +457,7 @@ class TestController extends Controller
 
             'Наличие мобильного номера' => [
                 'new_name' => 'have_mobile_phone',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -423,6 +471,7 @@ class TestController extends Controller
 
             'Наличие рабочего номера' => [
                 'new_name' => 'have_work_phone',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -436,6 +485,7 @@ class TestController extends Controller
 
             'Досрочное погашение' => [
                 'new_name' => 'have_early_repayment',
+                'need_comment_field' => 'have_early_repayment_comment',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -449,6 +499,7 @@ class TestController extends Controller
 
             'Пролонгация' => [
                 'new_name' => 'have_prolongation',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -462,6 +513,7 @@ class TestController extends Controller
 
             'Гражданство' => [
                 'new_name' => 'have_citizenship',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -486,6 +538,7 @@ class TestController extends Controller
 
             'Цель кредита' => [
                 'new_name' => 'credit_goal',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -506,6 +559,7 @@ class TestController extends Controller
 
             'Способ получение' => [
                 'new_name' => 'receive_mode',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -520,6 +574,7 @@ class TestController extends Controller
 
             'Регистрация' => [
                 'new_name' => 'registration',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -533,6 +588,7 @@ class TestController extends Controller
 
             'Срок рассмотрения' => [
                 'new_name' => 'time_for_consideration',
+                'need_comment_field' => 'time_for_consideration_comment',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -550,6 +606,7 @@ class TestController extends Controller
 
             'Кредитная история' => [
                 'new_name' => 'credit_history',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -563,6 +620,7 @@ class TestController extends Controller
 
             'Оформление кредита' => [
                 'new_name' => 'credit_formalization',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -578,6 +636,7 @@ class TestController extends Controller
             'Документы' => [
                 'new_name' => 'docs_ru',
                 'new_name2' => 'docs_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -588,6 +647,7 @@ class TestController extends Controller
             'Прочие требования' => [
                 'new_name' => 'other_claims_ru',
                 'new_name2' => 'other_claims_kz',
+                'need_comment_field' => '',
                 'option_name' => false,
                 'description' => true,
                 'value_from' => false,
@@ -597,6 +657,7 @@ class TestController extends Controller
 
             'Категории заемщиков' => [
                 'new_name' => 'debtor_category',
+                'need_comment_field' => '',
                 'new_name2' => null,
                 'option_name' => true,
                 'description' => false,
@@ -651,10 +712,13 @@ class TestController extends Controller
                 else{
                     // преобразование не требуется, сохраняем как есть
                     // свойство: currency => usd
-                    $credit_arr[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
-                    if($arr_item['new_name2'] != null){
-                        $credit_arr[$arr_item['new_name2']] = mb_strtolower($old_credit->option_name);
+                    if(!isset($credit_arr[$arr_item['new_name']])){
+                        $credit_arr[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
+                        if($arr_item['new_name2'] != null){
+                            $credit_arr[$arr_item['new_name2']] = mb_strtolower($old_credit->option_name);
+                        }
                     }
+
                 }
             }
             elseif ($arr_item['description'] != false){
@@ -688,6 +752,10 @@ class TestController extends Controller
                     $credit_arr[$arr_item['new_name']] = null;
                 }
             }
+
+            if(!empty($arr_item['need_comment_field'])){
+                $credit_arr[$arr_item['need_comment_field']] = trim($old_credit->description);
+            }
         }
 
         if(!empty($receive_mode)){
@@ -698,13 +766,30 @@ class TestController extends Controller
         return $credit_arr;
     }
 
-    private function fill_fees($old_credit, $credit_fees = [])
+    private function fill_fees2($old_credit, $credit_fees = [])
     {
         // соответствия старым условиям новым (комиссии)
         $old_new_credit_fees = [
 
-            'Тип комиссии' => [
-                'new_name' => 'komissiya-za-organizatsiyu',
+//            'Тип комиссии' => [
+//                'new_name' => 'komissiya-za-organizatsiyu',
+//                'new_name2' => null,
+//                'description' => false,
+//                'option_name' => true,
+//                'value_from' => true,
+//                'value_to' => true,
+//                'transform' => [
+//                    'разовая, %' => 'one_time_percent',
+//                    'разово % от суммы' => 'one_time_percent',
+//                    'разовая, сумма' => 'one_time_amount',
+//                    'разово в сумме' => 'one_time_amount',
+//                    'ежемесячная, %' => 'every_month_percent',
+//                    'ежемесячно % от кредита' => 'every_month_percent',
+//                    'не менее суммы' => 'not_less_then_amount',
+//                ],
+//            ],
+            'Комиссия за обслуживание кредита' => [
+                'new_name' => 'service',
                 'new_name2' => null,
                 'description' => false,
                 'option_name' => true,
@@ -720,29 +805,12 @@ class TestController extends Controller
                     'не менее суммы' => 'not_less_then_amount',
                 ],
             ],
-            'Комиссия за обслуживание кредита' => [
-                'new_name' => 'komissiya-za-obsluzhivanie',
-                'new_name2' => null,
-                'description' => false,
-                'option_name' => false,
-                'value_from' => true,
-                'value_to' => true,
-                'transform' => [
-                    'разовая, %' => 'one_time_percent',
-                    'разово % от суммы' => 'one_time_percent',
-                    'разовая, сумма' => 'one_time_amount',
-                    'разово в сумме' => 'one_time_amount',
-                    'ежемесячная, %' => 'every_month_percent',
-                    'ежемесячно % от кредита' => 'every_month_percent',
-                    'не менее суммы' => 'not_less_then_amount',
-                ],
-            ],
 
             'Комиссия за зачисление на карту / счет' => [
-                'new_name' => 'komissiya-za-zachislenie-na-kartu-schet',
+                'new_name' => 'card_account_enrolment',
                 'new_name2' => null,
                 'description' => false,
-                'option_name' => false,
+                'option_name' => true,
                 'value_from' => true,
                 'value_to' => true,
                 'transform' => [
@@ -757,10 +825,10 @@ class TestController extends Controller
             ],
 
             'Комиссия за обналичивание' => [
-                'new_name' => 'komissiya-za-obnalichivanie',
+                'new_name' => 'monetisation',
                 'new_name2' => null,
                 'description' => false,
-                'option_name' => false,
+                'option_name' => true,
                 'value_from' => true,
                 'value_to' => true,
                 'transform' => [
@@ -775,10 +843,10 @@ class TestController extends Controller
             ],
 
             'Комиссия за организацию финансирования' => [
-                'new_name' => 'komissiya-za-organizatsiyu',
+                'new_name' => 'organization',
                 'new_name2' => null,
                 'description' => false,
-                'option_name' => false,
+                'option_name' => true,
                 'value_from' => true,
                 'value_to' => true,
                 'transform' => [
@@ -792,10 +860,10 @@ class TestController extends Controller
                 ],
             ],
             'Комиссия за выдачу займа' => [
-                'new_name' => 'komissiya-za-vydachu-kredita',
+                'new_name' => 'granting',
                 'new_name2' => null,
                 'description' => false,
-                'option_name' => false,
+                'option_name' => true,
                 'value_from' => true,
                 'value_to' => true,
                 'transform' => [
@@ -809,10 +877,10 @@ class TestController extends Controller
                 ],
             ],
             'Комиссия за рассмотрение' => [
-                'new_name' => 'komissiya-za-rassmotrenie',
+                'new_name' => 'review',
                 'new_name2' => null,
                 'description' => false,
-                'option_name' => false,
+                'option_name' => true,
                 'value_from' => true,
                 'value_to' => true,
                 'transform' => [
@@ -825,23 +893,7 @@ class TestController extends Controller
                     'не менее суммы' => 'not_less_then_amount',
                 ],
             ],
-            'Страхование' => [
-                'new_name' => 'strakhovanie',
-                'new_name2' => null,
-                'description' => true,
-                'option_name' => false,
-                'value_from' => false,
-                'value_to' => false,
-                'transform' => [],
-//                'transform' => [
-//                    'Не требуется' => null,
-//                    'разово в %' => 'one_time_percent',
-//                    'разово в тенге' => 'one_time_amount',
-//                    'не менее' => 'not_less_then_amount',
-//                    'не обязательно' => null,
-//                    'Не важно' => null,
-//                ],
-            ],
+
 
         ];
 
@@ -856,87 +908,12 @@ class TestController extends Controller
                 // если данные надо преобразовать в новый тип:
                 // C подтверждением доходов => 1
                 // Без подтверждения доходов => 0
-                if(!empty($arr_item['transform'])){
-                    //если в массиве transform есть такой ключ: "C подтверждением доходов"
-                    if(isset($arr_item['transform'][mb_strtolower($old_credit->option_name)])){
+                //если в массиве transform есть такой ключ: "C подтверждением доходов"
+                if(isset($arr_item['transform'][mb_strtolower($old_credit->option_name)])){
 
-                        $fee_type = FeeType::where('alt_name_ru', $arr_item['new_name'])->where('product_type', 'credit')->first();
-                        if($fee_type != null){
-                            $fee_value = $fee_type->fee_values()->where('value', $arr_item['transform'][mb_strtolower($old_credit->option_name)])->first();
-                            $credit_fees['fee_type_id'] = $fee_type->id;
-                            $credit_fees['fee_value_id'] = isset($fee_value->id) ? $fee_value->id : null;
-                            $credit_fees['input'] = $old_credit->value_from;
-                        }
+                    $credit_fees[$arr_item['new_name']] = $arr_item['transform'][mb_strtolower($old_credit->option_name)];
+                    $credit_fees[$arr_item['new_name'].'_input'] = $old_credit->value_from;
 
-
-
-//                        $credit_fees[$arr_item['new_name']] = $arr_item['transform'][mb_strtolower($old_credit->option_name)];
-//                        if($arr_item['new_name2'] != null){
-//                            $credit_fees[$arr_item['new_name2']] = $arr_item['transform'][mb_strtolower($old_credit->option_name)];
-//                        }
-                    }
-                }
-                else{
-                    // преобразование не требуется, сохраняем как есть
-                    // свойство: currency => usd
-                    $credit_fees[$arr_item['new_name']] = mb_strtolower($old_credit->option_name);
-                    if($arr_item['new_name2'] != null){
-                        $credit_fees[$arr_item['new_name2']] = mb_strtolower($old_credit->option_name);
-                    }
-                }
-            }
-            elseif ($arr_item['description'] != false){
-                if(!empty($arr_item['transform'])){
-                    //если в массиве transform есть такой ключ: "C подтверждением доходов"
-                    if(isset($arr_item['transform'][mb_strtolower($old_credit->description)])){
-
-                        $fee_type = FeeType::where('alt_name_ru', $arr_item['new_name'])->where('product_type', 'credit')->first();
-                        if($fee_type){
-                            $fee_value = $fee_type->fee_values()->where('value', $arr_item['transform'][mb_strtolower($old_credit->description)])->first();
-                            if($fee_value){
-                                $credit_fees['fee_type_id'] = $fee_type->id;
-                                $credit_fees['fee_value_id'] = $fee_value->id;
-                                $credit_fees['input'] = $old_credit->value_from;
-                            }
-                        }
-                    }
-                }
-                else{
-                    $fee_type = FeeType::where('alt_name_ru', $arr_item['new_name'])->where('product_type', 'credit')->first();
-
-                    $credit_fees['fee_type_id'] = $fee_type->id;
-                    $credit_fees['fee_value_id'] = null;
-                    $credit_fees['input'] = $old_credit->description;
-
-                    if($arr_item['new_name2'] != null){
-                        $credit_fees[$arr_item['new_name2']] = $old_credit->description;
-                    }
-                }
-
-            }
-            // value_from / value_to
-            else{
-
-                if($old_credit->value_from != null){
-
-                    $cleared = $old_credit->value_from;
-                    $cleared = str_replace([','], '.', $cleared);
-                    $cleared = str_replace(['%', 'от', ' '], '', $cleared);
-                    $cleared = str_replace([' '], '', $cleared);
-
-                    $credit_fees[$arr_item['new_name']] = $cleared;
-                }
-                elseif($old_credit->value_to != null){
-                    $credit_fees[$arr_item['new_name']] = $old_credit->value_to;
-                }
-                elseif ($old_credit->option_value_from != null){
-                    $credit_fees[$arr_item['new_name']] = $old_credit->option_value_from;
-                }
-                elseif ($old_credit->option_value_to != null){
-                    $credit_fees[$arr_item['new_name']] = $old_credit->option_value_to;
-                }
-                else{
-                    $credit_fees[$arr_item['new_name']] = null;
                 }
             }
         }
@@ -1053,6 +1030,24 @@ class TestController extends Controller
                 $prop->created_by = 1;
                 $prop->changed_by = 1;
                 $prop->save();
+            }
+        }
+    }
+
+    private function fill_insurance()
+    {
+        $credits = Credit::all();
+        $no = [
+            'не требуется',
+            'Отсутствует',
+            'нет',
+            'Нет',
+            'Не требуется',
+        ];
+        foreach ($credits as $credit) {
+            if(in_array($credit->insurance_input, $no) || $credit->insurance_input == null){
+                $credit->insurance = 'voidable';
+                $credit->save();
             }
         }
     }

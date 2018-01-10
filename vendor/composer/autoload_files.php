@@ -21,6 +21,7 @@ return array(
     'd1c4ede1af6c35cb450136a67f05181b' => $baseDir . '/app/Http/Helpers/SypexGeo/SxGeo.php',
     '41f684efab341712100e190fe739d125' => $baseDir . '/app/Http/Helpers/SypexGeo/GeoHelper.php',
     '832f72aaa567273778d78747fb5c8606' => $baseDir . '/app/Http/Helpers/CalcHelper.php',
+    '8f85d6c26c1034cd24e174d825e911a3' => $baseDir . '/app/Http/Helpers/CompareHelper.php',
     '75ad3037e43d0192fb64c6cf0382a2e7' => $baseDir . '/app/Http/Helpers/CommonHelper.php',
     '54ddad554b04541be7af6a337d061bc8' => $baseDir . '/app/Http/Helpers/SeoHelper.php',
 );

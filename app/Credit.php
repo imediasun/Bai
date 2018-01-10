@@ -67,6 +67,11 @@ class Credit extends Model
         return $this->belongsTo('App\Bank');
     }
 
+    public function fees()
+    {
+        return $this->hasMany('App\CreditPropFee');
+    }
+
     public function props()
     {
         return $this->hasMany('App\CreditProp');
@@ -149,13 +154,37 @@ class Credit extends Model
         return null;
     }
 
-    public static function transform_currency($item)
+    public static function transform_currency($item, $symbol = true)
+    {
+        if($symbol){
+            $arr = [
+                'kzt' => '₸',
+                'usd' => '$',
+                'eur' => '€',
+                '' => '₸',
+            ];
+        }
+        else{
+            $arr = [
+                'kzt' => 'тенге',
+                'usd' => 'долларов',
+                'eur' => 'евро',
+                '' => 'тенге',
+            ];
+        }
+
+        if(isset($arr[$item])){
+            return $arr[$item];
+        }
+
+        return null;
+    }
+
+    public static function transform_income_confirmation($item)
     {
         $arr = [
-            'kzt' => '₸',
-            'usd' => '$',
-            'eur' => '€',
-            '' => '₸',
+            1 => 'с подтверждением дохода',
+            0 => 'без подтверждением дохода',
         ];
 
         if(isset($arr[$item])){
@@ -163,6 +192,89 @@ class Credit extends Model
         }
 
         return null;
+    }
+
+    public static function getCredits($city = null, $bank = null, $ff = null, $opt = [])
+    {
+        $credits = Credit::all();;
+
+        if(empty($opt)){
+            foreach ($credits as $credit) {
+
+
+                $props = $credit->props()->orderBy('percent_rate', 'asc')->get();//->whereNotNull('percent_rate')
+                ;
+
+                $rate = $props->min('percent_rate');
+
+                $options['initial_fee'] = $opt['initial_fee']??0;
+                $options['rate'] = $opt['rate']?? $rate;
+                $options['tot'] = $opt['calc[tot]']??200000;
+                $options['period'] = $opt['calc[period]']??12;
+
+                $result = \CalcHelper::calculate_credit($options['period'], $options['tot'], $options['rate'], 1, $options['initial_fee']);
+                $credit->ppm = $result['ppm'][0];
+                $credit->overpay = $result['procentAmount'];
+
+                $props = $props->first();
+                if($props){
+                    if(!empty($props->min_amount) && !empty($props->max_amount)){
+                        $min = \CommonHelper::format_number($props->min_amount, false);
+                        $max = \CommonHelper::format_number($props->max_amount, false);
+                        $credit->amount = "от $min до $max";
+                    }
+                    elseif (!empty($props->min_amount)){
+                        $min = \CommonHelper::format_number($props->min_amount, false);
+                        $credit->amount = "от $min";
+                    }
+                    elseif (!empty($props->max_amount)){
+                        $max = \CommonHelper::format_number($props->max_amount, false);
+                        $credit->amount = "до $max";
+                    }
+                    else{
+                        $credit->amount = "";
+                    }
+
+                    if(!empty($props->min_period) && !empty($props->max_period)){
+                        $min = $props->min_period;
+                        $max = $props->max_period;
+                        $credit->period = "от $min до $max";
+                    }
+                    elseif (!empty($props->min_period)){
+                        $min = $props->min_period;
+                        $credit->period = "от $min";
+                    }
+                    elseif (!empty($props->max_period)){
+                        $max = $props->max_period;
+                        $credit->period = "до $max";
+                    }
+                    else{
+                        $credit->amount = "";
+                    }
+
+
+                    $credit->min_amount = $props->min_amount;
+                    $credit->max_amount = $props->max_amount;
+
+                    $credit->min_period = $props->min_period;
+                    $credit->max_period = $props->max_period;
+
+                    $credit->percent_rate = $props->percent_rate;
+
+                    $credit->minimum_income = \CommonHelper::format_number($credit->minimum_income, false);
+
+
+                    $credit->credit_security = Credit::transform_security($props->credit_security);
+                    $credit->currency = Credit::transform_currency($props->currency) ?? '₸';
+                    $credit->income_confirmation = Credit::transform_income_confirmation($props->income_confirmation);
+                }
+            }
+        }
+        else{
+
+        }
+//        $credits = $credits->order
+        return $credits;
     }
 
 //    public function scopeppm($query, $id)
