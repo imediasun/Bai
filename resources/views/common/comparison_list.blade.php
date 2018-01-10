@@ -29,7 +29,7 @@
     <tr>
         <th>Сумма</th>
         @foreach($products as $product)
-            <td class="compare_list_item_{{ $product->id }}">{{ $product->amount }}
+            <td class="compare_list_item_{{ $product->id }}">{{ $product->amount }}{{ $product->currency }}
             </td>
         @endforeach
     </tr>

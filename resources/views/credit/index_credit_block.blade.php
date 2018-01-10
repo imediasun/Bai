@@ -12,7 +12,7 @@
             <!-- end .name-->
             <ul class="info">
                 <li class="credit_rate"><strong>{{ empty($credit->percent) ? $credit->percent_rate : $credit->percent }}%</strong> ставка в год</li>
-                <li class="payment_per_month"><strong>{{ $credit->ppm }}</strong> @if($credit->currency == 'kzt' || empty($credit->currency)){{ 'тенге' }}@elseif($credit->currency == 'usd') {{ 'долларов' }}@else {{ 'евро' }} @endif в месяц</li>
+                <li class="payment_per_month"><strong>{{ $credit->ppm }}</strong> @if($credit->currency == 'kzt' || empty($credit->currency)){{ '₸' }}@elseif($credit->currency == '$') {{ 'долларов' }}@else {{ 'евро' }} @endif в месяц</li>
                 <li class="overpay"><strong>-{{ $credit->overpay }}</strong> переплата</li>
             </ul>
             <!-- end .info-->
@@ -33,7 +33,7 @@
     <!-- end .head-->
     <div class="in" data-id="{{ $credit->id }}">
         <ul class="benefits_checks">
-            <li><span class="ic ic_check active"></span> <strong>Сумма:</strong> {{ $credit->amount }}{{ $credit->currency }}</li>
+            <li><span class="ic ic_check active"></span> <strong>Сумма:</strong> @if(!empty($credit->amount)) {{ $credit->amount }}{{ $credit->currency }}@else{{'без ограничений'}}@endif</li>
             <li><span class="ic ic_check active"></span> <strong>Срок:</strong> {{ $credit->period }} месяцев</li>
             <li><span class="ic ic_check active"></span> <strong>Процентная ставка:</strong> от {{ $credit->percent != null ? $credit->percent : $credit->percent_rate  }}%</li>
             <li><span class="ic ic_check active"></span> <strong>Срок рассмотрения:</strong> {{ $credit->time_for_consideration }} дней</li>
@@ -43,8 +43,8 @@
             <li><span class="ic ic_check active"></span> <strong>Подтверждение дохода:</strong> {{ $credit->income_confirmation}}</li>
             <li><span class="ic ic_check active"></span> <strong>Обеспечение:</strong> {{ $credit->credit_security }}</li>
             <li><span class="ic ic_check active"></span> <strong>Схема погашения:</strong> {{ $credit->repayment_structure == 'diff' ? 'дифференцированная' : 'аннуитетная' }}</li>
-            <li><span class="ic ic_check active"></span> <strong>Минимальный официальных доход:</strong> {{ $credit->minimum_income }}{{ $credit->currency }}</li>
-            <li><span class="ic ic_check active"></span> <strong>Общий стаж работы:</strong> {{ $credit->occupational_life }} лет</li>
+            <li><span class="ic ic_check active"></span> <strong>Минимальный официальных доход:</strong> @if(!empty($credit->minimum_income)) {{ $credit->minimum_income }}{{ $credit->currency }}@else{{ '60 000 тенге' }}@endif</li>
+            <li><span class="ic ic_check active"></span> <strong>Общий стаж работы:</strong> {{ $credit->occupational_life }} месяцев</li>
         </ul>
         <div class="actions">
             <div><a onclick="comparationListToggle({{ $credit->id }})" class="to_compare2" href="#"><span class="ic ic_scale white"></span><span class="opt_link">Сравнить</span></a></div>
