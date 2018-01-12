@@ -184,6 +184,15 @@ class MigrateCredits extends Command
                 'transform' => []
             ],
 
+            'ГЭСВ' => [
+                'new_name' => 'gesv|null',
+                'need_comment_field' => 'gesv_comment',
+                'option_name' => false,
+                'value_from' => true,
+                'value_to' => false,
+                'transform' => []
+            ],
+
             'Зарплатный проект' => [
                 'new_name' => 'income_project',
                 'need_comment_field' => '',
@@ -547,16 +556,6 @@ class MigrateCredits extends Command
                     'не важно' => null,
                 ]
             ],
-
-//            'Способы погашение' => [
-//                'new_name' => 'method_of_repayment_ru',
-//                'new_name2' => null,
-//                'option_name' => true,
-//                'description' => false,
-//                'value_from' => false,
-//                'value_to' => false,
-//                'transform' => []
-//            ],
 
             'Цель кредита' => [
                 'new_name' => 'credit_goal',
@@ -1037,6 +1036,9 @@ class MigrateCredits extends Command
                     if($founded_row != null){
                         $prop->age = $founded_row->age;
                     }
+                    else{
+                        $prop->age = '23-64';
+                    }
                 }
 
                 if($prop->client_type == null){
@@ -1046,6 +1048,13 @@ class MigrateCredits extends Command
                     }
                     else{
                         $prop->client_type = 'standart';
+                    }
+                }
+
+                if($prop->gesv == null){
+                    $founded_row = $credit->props()->whereNotNull('gesv')->first();
+                    if($founded_row != null){
+                        $prop->gesv = $founded_row->gesv;
                     }
                 }
 

@@ -60,20 +60,7 @@
                                 <div class="in" style="height: auto;">
                                     <div class="main_indent">
                                         <div class="form_row form_row_autowidth">
-                                            <div class="form_el form_checks form_checks_inline">
-                                                <ul>
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox" name="calc[without_fees]" class="outtaHere prop_filter">
-                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Без комиссий</span></label>
-                                                    </li>
-                                                    <li hidden>
-                                                        <label>
-                                                            <input type="checkbox" name="calc[online_request]" class="outtaHere prop_filter">
-                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Онлайн-заявка</span></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
                                             <div class="form_el">
                                                 <div class="label" >Срок рассмотрения</div>
                                                 <div class="input">
@@ -181,16 +168,16 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form_el">
-                                                <div class="label">Досрочное погашение</div>
-                                                <div class="input input_big">
-                                                    <select name="calc[have_early_repayment]" id="repayment_structure" class="curselect prop_filter">
-                                                        <option value="none">Не важно</option>
-                                                        <option @if(Request::has('have_early_repayment') && Request::input('have_early_repayment') == 1 ) selected @endif value="1">есть</option>
-                                                        <option @if(Request::has('have_early_repayment') && Request::input('have_early_repayment') == 0 ) selected @endif value="0">нет</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            {{--<div class="form_el">--}}
+                                                {{--<div class="label">Досрочное погашение</div>--}}
+                                                {{--<div class="input input_big">--}}
+                                                    {{--<select name="calc[have_early_repayment]" id="repayment_structure" class="curselect prop_filter">--}}
+                                                        {{--<option value="none">Не важно</option>--}}
+                                                        {{--<option @if(Request::has('have_early_repayment') && Request::input('have_early_repayment') == 1 ) selected @endif value="1">есть</option>--}}
+                                                        {{--<option @if(Request::has('have_early_repayment') && Request::input('have_early_repayment') == 0 ) selected @endif value="0">нет</option>--}}
+                                                    {{--</select>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
                                             <div class="form_el">
                                                 <div class="label">Способ получения</div>
                                                 <div class="input input_big">
@@ -213,6 +200,25 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                            </div>
+                                            <div class="form_el form_checks form_checks_inline">
+                                                <ul>
+                                                    <li>
+                                                        <label>
+                                                            <input value="1" type="checkbox" name="calc[without_fees]" class="outtaHere prop_filter">
+                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Без комиссий</span></label>
+                                                    </li>
+                                                    <li>
+                                                        <label>
+                                                            <input value="1" type="checkbox" name="calc[have_early_repayment]" class="outtaHere prop_filter">
+                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Досрочное погашение</span></label>
+                                                    </li>
+                                                    <li hidden>
+                                                        <label>
+                                                            <input value="1" type="checkbox" name="calc[online_request]" class="outtaHere prop_filter">
+                                                            <span class="checkbox"><span class="ic ic_check dark"></span></span> <span>Онлайн-заявка</span></label>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
 

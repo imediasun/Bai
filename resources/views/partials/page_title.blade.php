@@ -1,5 +1,5 @@
 <div class="main_head main_indent">
-    {{--{{ Breadcrumbs::render('credits') }}--}}
+{{--    {{ \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('credits') }}--}}
     @if ($product_type == 'credit_cards' )
         <div class="h1 title_tabs">
             <a class="tab active" href="#"><span class="opt_link">Кредитные карты</span></a>

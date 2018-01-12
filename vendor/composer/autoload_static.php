@@ -24,6 +24,7 @@ class ComposerStaticInit376bd9cba86c129aa3d3c52fe66b6be5
         '832f72aaa567273778d78747fb5c8606' => __DIR__ . '/../..' . '/app/Http/Helpers/CalcHelper.php',
         '8f85d6c26c1034cd24e174d825e911a3' => __DIR__ . '/../..' . '/app/Http/Helpers/CompareHelper.php',
         '75ad3037e43d0192fb64c6cf0382a2e7' => __DIR__ . '/../..' . '/app/Http/Helpers/CommonHelper.php',
+        '98523d8f26a37c098a01ffd5328aaef6' => __DIR__ . '/../..' . '/app/Http/Helpers/ProductOnlineHelper.php',
         '54ddad554b04541be7af6a337d061bc8' => __DIR__ . '/../..' . '/app/Http/Helpers/SeoHelper.php',
     );
 

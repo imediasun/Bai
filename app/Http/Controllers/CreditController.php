@@ -13,39 +13,12 @@ class CreditController extends Controller
 {
     public function index(Request $request)
     {
-//        $f = Credit::getCredits();
+        $_SESSION['currency'] = '₸';
+
         unset($_SESSION['compare']);
         $credits = Credit::all();
         $all = $request->all();
         if(empty($request->all())){
-            /*foreach ($credits as $credit) {
-                $props = $credit->props()->whereNotNull('percent_rate')
-//                    ->where('currency', 'kzt')
-                ;
-
-                $rate = $props->min('percent_rate');
-
-                $options['initial_fee'] = $all['initial_fee']??0;
-                $options['rate'] = $all['rate']?? $rate;
-                $options['tot'] = $all['calc[tot]']??200000;
-                $options['period'] = $all['calc[period]']??12;
-
-                $result = \CalcHelper::calculate_credit(12, $options['tot'], $options['rate'], 1, $options['initial_fee']);
-                $credit->ppm = $result['ppm'][0];
-                $credit->overpay = $result['procentAmount'];
-
-                $props = $props->first();
-                if($props){
-                    $credit->min_amount = $props->min_amount;
-                    $credit->max_amount = $props->max_amount;
-
-                    $credit->min_period = $props->min_period;
-                    $credit->max_period = $props->max_period;
-
-                    $credit->percent_rate = $props->percent_rate;
-                    $credit->credit_security = Credit::transform_security($props->credit_security);
-                }
-            }*/
 
             $credits = Credit::getCredits();
         }
@@ -87,6 +60,8 @@ class CreditController extends Controller
 
     public function filterByUrl(Request $request, $object, $city = null)
     {
+        unset($_SESSION['compare']);
+
         $result = [];
         $where = [];
         $all = $request->all();
@@ -117,6 +92,57 @@ class CreditController extends Controller
 
                         $credits = Credit::join('credit_props', 'credits.id', '=', 'credit_props.credit_id')
                                         ->where($where)->get();
+                        
+                        foreach ($credits as $credit){
+                            if(!empty($credit->min_amount) && !empty($credit->max_amount)){
+                                $min = \CommonHelper::format_number($credit->min_amount, false);
+                                $max = \CommonHelper::format_number($credit->max_amount, false);
+                                $credit->amount = "от $min до $max";
+                            }
+                            elseif (!empty($credit->min_amount)){
+                                $min = \CommonHelper::format_number($credit->min_amount, false);
+                                $credit->amount = "от $min";
+                            }
+                            elseif (!empty($credit->max_amount)){
+                                $max = \CommonHelper::format_number($credit->max_amount, false);
+                                $credit->amount = "до $max";
+                            }
+                            else{
+                                $credit->amount = "";
+                            }
+
+                            if(!empty($credit->min_period) && !empty($credit->max_period)){
+                                $min = $credit->min_period;
+                                $max = $credit->max_period;
+                                $credit->period = "от $min до $max";
+                            }
+                            elseif (!empty($credit->min_period)){
+                                $min = $credit->min_period;
+                                $credit->period = "от $min";
+                            }
+                            elseif (!empty($credit->max_period)){
+                                $max = $credit->max_period;
+                                $credit->period = "до $max";
+                            }
+                            else{
+                                $credit->amount = "";
+                            }
+
+                            $options['initial_fee'] = 0;
+                            $options['rate'] = $credit->percent_rate;
+                            $options['tot'] = 200000;
+                            $options['period'] = 12;
+
+                            $result = \CalcHelper::calculate_credit($options['period'], $options['tot'], $options['rate'], 1, $options['initial_fee']);
+                            $credit->ppm = $result['ppm'][0];
+                            $credit->overpay = $result['procentAmount'];
+
+                            $credit->minimum_income = \CommonHelper::format_number($credit->minimum_income, false);
+
+                            $credit->credit_security = Credit::transform_security($credit->credit_security);
+                            $credit->currency = Credit::transform_currency($credit->currency) ?? '₸';
+                            $credit->income_confirmation = Credit::transform_income_confirmation($credit->income_confirmation);
+                        }
 
                         $result = [
                             'credits' => $credits,

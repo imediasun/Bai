@@ -29,6 +29,8 @@ class CreditProp extends Model
         'income_confirmation_comment',
         'credit_security_comment',
         'repayment_structure_comment',
+        'gesv',
+        'gesv_comment',
 
     ];
 

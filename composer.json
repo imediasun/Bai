@@ -33,6 +33,7 @@
             "app/Http/Helpers/CalcHelper.php",
             "app/Http/Helpers/CompareHelper.php",
             "app/Http/Helpers/CommonHelper.php",
+            "app/Http/Helpers/ProductOnlineHelper.php",
             "app/Http/Helpers/SeoHelper.php"
         ],
         "psr-4": {

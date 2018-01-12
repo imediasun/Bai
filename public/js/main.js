@@ -331,14 +331,14 @@ function cutFor3(input)
 
 function load_credit_step1() {
     $.ajax({
-        url: Routing.generate('credit_ajax_step1'),
+        url: '/ajax/credit-online/credits/1',
         async: true,
         cache: false,
         type: "POST",
         dataType: "json",
         data: storageData,
         success: function (response) {
-            $('.modal_container').html(response);
+            $('.modal_container').html(response.html);
 
             $('.modal').show(1000);
             $('html,body').animate({scrollTop: $('.modal').offset().top});

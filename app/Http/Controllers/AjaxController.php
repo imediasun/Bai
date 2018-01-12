@@ -208,6 +208,8 @@ class AjaxController extends Controller
             }
         }
 
+        $_SESSION['currency'] = $all_parsed_without_none['currency'] ?? '₸';
+
         if(isset($all_parsed['calc']['without_fees']) && $all_parsed['calc']['without_fees']){
             $cr = Credit::doesntHave('fees')->leftJoin('credit_props', 'credits.id', '=', 'credit_props.credit_id')
                 ->where('percent_rate', '!=', null);
@@ -303,7 +305,7 @@ class AjaxController extends Controller
 
 
 //            $item->credit_security = Credit::transform_security($item->credit_security);
-            $item->currency = Credit::transform_currency($item->currency) ?? '₸';
+            $item->currency = Credit::transform_currency($all_parsed_without_none['currency']) ?? '₸';
             $item->income_confirmation = Credit::transform_income_confirmation($item->income_confirmation);
 
             $fees = CreditPropFee::where('credit_prop_id', $item['credit_props']['id'])->first();
@@ -329,6 +331,7 @@ class AjaxController extends Controller
             $item->overpay = $result['procentAmount'];
             $item->percent = $options['rate'];
             $item->id = $item->credit_id;
+//            $item->currency = $_SESSION['currency'];
         }
 
 //        $filtered_credits = Credit::where('credit_goal', $all_parsed['calc']['credit_goal'])->
@@ -412,12 +415,15 @@ class AjaxController extends Controller
                     $item->percent_rate = $item->prop->percent_rate;
                     $item->overpay = $result['procentAmount'];
                     $item->age = $item->prop->age;
+                    $item->income_confirmation = Credit::transform_income_confirmation($item->prop->income_confirmation);
+
+//                    $comparisonList[$key]->prop = $item->prop;
+//                    $comparisonList[$key]->ppm = $item->ppm;
+//                    $comparisonList[$key]->overpay = $item->overpay;
+//                    $comparisonList[$key]->income_conformation = Credit::transform_income_confirmation($item->income_conformation);
+//                    $comparisonList[$key]->credit_history = Credit::transform_credit_history($item->credit_history);
                 }
-                $comparisonList[$key]->prop = $item->prop;
-                $comparisonList[$key]->ppm = $item->ppm;
-                $comparisonList[$key]->overpay = $item->overpay;
-                $comparisonList[$key]->income_conformation = Credit::transform_income_confirmation($item->income_conformation);
-                $comparisonList[$key]->credit_history = Credit::transform_credit_history($item->credit_history);
+
 
 //                $item->granting = $item->fees()->whereNotNull('granting_input')->first();
 //                if($item->granting){
@@ -447,6 +453,13 @@ class AjaxController extends Controller
 
         return response()->json(array('success' => false, 'html' => '', 'action' => 'add'));
 
+    }
+
+    public function credit_online(Request $request, $product, $step)
+    {
+        $product_online = new \ProductOnlineHelper();
+
+        return $product_online->step1($request, $product);
     }
 }
 

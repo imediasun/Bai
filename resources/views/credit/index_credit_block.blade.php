@@ -9,10 +9,11 @@
             <div class="name">
                 <a href="">{{ $credit->name_ru}}</a>
             </div>
+{{--            {{dd($credit->currency)}}--}}
             <!-- end .name-->
             <ul class="info">
                 <li class="credit_rate"><strong>{{ empty($credit->percent) ? $credit->percent_rate : $credit->percent }}%</strong> ставка в год</li>
-                <li class="payment_per_month"><strong>{{ $credit->ppm }}</strong> @if($credit->currency == 'kzt' || empty($credit->currency)){{ '₸' }}@elseif($credit->currency == '$') {{ 'долларов' }}@else {{ 'евро' }} @endif в месяц</li>
+                <li class="payment_per_month"><strong>{{ $credit->ppm }}</strong> {{ $credit->currency }} в месяц</li>
                 <li class="overpay"><strong>-{{ $credit->overpay }}</strong> переплата</li>
             </ul>
             <!-- end .info-->
@@ -39,12 +40,12 @@
             <li><span class="ic ic_check active"></span> <strong>Срок рассмотрения:</strong> {{ $credit->time_for_consideration }} дней</li>
             <li><span class="ic ic_check active"></span> <strong>Возраст заемщика:</strong>  {{ $credit->age == 18 ? 'от 18 лет' : 'от 23 до 63 лет'}} </li>
             <li><span class="ic ic_check active"></span> <strong>ГЭСВ:</strong> {{ $credit->gesv }}%</li>
-            <li><span class="ic ic_check active"></span> <strong>Досрочное погашение:</strong> {{ $credit->have_early_repayment ? 'да' : 'нет' }}</li>
+            <li><span class="ic ic_check active"></span> <strong>Досрочное погашение:</strong> {{ $credit->have_early_repayment ? 'есть' : 'нет' }}</li>
             <li><span class="ic ic_check active"></span> <strong>Подтверждение дохода:</strong> {{ $credit->income_confirmation}}</li>
             <li><span class="ic ic_check active"></span> <strong>Обеспечение:</strong> {{ $credit->credit_security }}</li>
             <li><span class="ic ic_check active"></span> <strong>Схема погашения:</strong> {{ $credit->repayment_structure == 'diff' ? 'дифференцированная' : 'аннуитетная' }}</li>
-            <li><span class="ic ic_check active"></span> <strong>Минимальный официальных доход:</strong> @if(!empty($credit->minimum_income)) {{ $credit->minimum_income }}{{ $credit->currency }}@else{{ '60 000 тенге' }}@endif</li>
-            <li><span class="ic ic_check active"></span> <strong>Общий стаж работы:</strong> {{ $credit->occupational_life }} месяцев</li>
+            <li><span class="ic ic_check active"></span> <strong>Минимальный официальных доход:</strong> @if(!empty($credit->minimum_income)) {{ $credit->minimum_income }}{{ ' ₸' }}@else{{ '60 000 ₸' }}@endif</li>
+            <li><span class="ic ic_check active"></span> <strong>Общий стаж работы:</strong> от {{ $credit->occupational_life or 3 }} месяцев</li>
         </ul>
         <div class="actions">
             <div><a onclick="comparationListToggle({{ $credit->id }})" class="to_compare2" href="#"><span class="ic ic_scale white"></span><span class="opt_link">Сравнить</span></a></div>

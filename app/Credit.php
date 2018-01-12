@@ -54,8 +54,7 @@ class Credit extends Model
         'time_for_consideration',
         'credit_history',
         'credit_formalization',
-        'gesv',
-        'gesv_comment',
+
         'time_for_consideration_comment',
         'have_early_repayment_comment',
         'occupational_life_comment',
@@ -196,7 +195,11 @@ class Credit extends Model
 
     public static function getCredits($city = null, $bank = null, $ff = null, $opt = [])
     {
-        $credits = Credit::all();;
+        $credits = Credit::all();
+
+//        if(!isset($opt['currency'])){
+//            $opt['currency'] = 'kzt';
+//        }
 
         if(empty($opt)){
             foreach ($credits as $credit) {
@@ -260,12 +263,14 @@ class Credit extends Model
                     $credit->max_period = $props->max_period;
 
                     $credit->percent_rate = $props->percent_rate;
+                    $credit->gesv = $props->gesv;
 
                     $credit->minimum_income = \CommonHelper::format_number($credit->minimum_income, false);
 
 
                     $credit->credit_security = Credit::transform_security($props->credit_security);
-                    $credit->currency = Credit::transform_currency($props->currency) ?? '₸';
+//                    $credit->currency = Credit::transform_currency($props->currency) ?? '₸';
+                    $credit->currency = $_SESSION['currency'];
                     $credit->income_confirmation = Credit::transform_income_confirmation($props->income_confirmation);
                 }
             }
