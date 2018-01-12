@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EditCreditPropFees extends Migration
+class EditCreditPropFees_3 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,8 @@ class EditCreditPropFees extends Migration
      */
     public function up()
     {
+
+
         Schema::table('credit_prop_fees', function (Blueprint $table) {
             $table->integer('fee_value_id')->nullable()->change();
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCreditPropFeesTable extends Migration
+class CreateCreditPropFeesTable_2 extends Migration
 {
     /**
      * Run the migrations.

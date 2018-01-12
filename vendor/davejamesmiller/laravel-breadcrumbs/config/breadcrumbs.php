@@ -18,9 +18,6 @@ return [
     |
     */
 
-//    'view' => 'breadcrumbs::materialize',
-//    'view' => 'partials/breadcrumbs',
-//    'view' => 'breadcrumbs::breadcrumbs_custom',
     'view' => 'breadcrumbs::bootstrap4',
 
     /*

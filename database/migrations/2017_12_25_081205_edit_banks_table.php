@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EditBanksTable extends Migration
+class EditBanksTable_2 extends Migration
 {
     /**
      * Run the migrations.
