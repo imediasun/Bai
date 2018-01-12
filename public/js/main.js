@@ -354,7 +354,7 @@ function load_credit_step1() {
 
 function load_credit_step2(step1) {
     $.ajax({
-        url: Routing.generate('credit_ajax_step2'),
+        url: '/ajax/credit-online/credits/1',
         async: true,
         cache: false,
         type: "POST",
